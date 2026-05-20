@@ -102,8 +102,8 @@
   // Platform word cycling
   const platforms = [
     { text: 'TikTok.',    color: '#FFD500' },
-    { text: 'Instagram.', color: '#E1306C' },
-    { text: 'YouTube.',   color: '#FF0000' },
+    { text: 'Instagram.', color: '#FFD500' },
+    { text: 'YouTube.',   color: '#FFD500' },
   ];
   const platformEl = document.querySelector('.prob__platform');
 

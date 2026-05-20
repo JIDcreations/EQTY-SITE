@@ -309,7 +309,11 @@ em { font-style: normal; color: var(--accent); }
   margin-left: 0;
   margin-right: 0;
 }
-.prob__platform { display: inline-block; }
+.prob__platform {
+  display: inline-block;
+  line-height: 1.08;
+  padding-bottom: 0.08em;
+}
 .prob__after {
   padding: clamp(60px, 10vh, 140px) var(--pad) clamp(80px, 14vh, 200px);
 }
