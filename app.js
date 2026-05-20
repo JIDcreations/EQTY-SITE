@@ -76,6 +76,21 @@
   });
 
   /* ---------- 4. Problem section — platform cycling ---------- */
+  gsap.fromTo('.prob__stage .prob__inner', {
+    y: 72,
+    opacity: 0.4
+  }, {
+    y: 0,
+    opacity: 1,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.pin-wrap--problem',
+      start: 'top bottom',
+      end: 'top 30%',
+      scrub: 1.1
+    }
+  });
+
   // Headline em reveal
   gsap.utils.toArray('.prob__h .line > *').forEach(el => {
     gsap.set(el, { yPercent: 110 });
@@ -106,33 +121,83 @@
     { text: 'YouTube.',   color: '#FFD500' },
   ];
   const platformEl = document.querySelector('.prob__platform');
+  if (platformEl) {
+    platformEl.innerHTML = platforms
+      .map(({ text }) => `<span class="prob__platform-word">${text}</span>`)
+      .join('');
 
-  function swapPlatform(idx) {
-    const { text, color } = platforms[idx];
-    gsap.killTweensOf(platformEl);
-    gsap.to(platformEl, {
-      opacity: 0,
-      duration: 0.25,
-      ease: 'power2.in',
-      onComplete: () => {
-        platformEl.textContent = text;
-        gsap.to(platformEl, { opacity: 1, color, duration: 0.4, ease: 'power3.out' });
+    const platformWords = Array.from(platformEl.querySelectorAll('.prob__platform-word'));
+
+    const setPlatformWidth = () => {
+      platformEl.style.width = 'auto';
+      const maxWidth = Math.max(...platformWords.map(word => word.getBoundingClientRect().width));
+      platformEl.style.width = `${Math.ceil(maxWidth)}px`;
+    };
+
+    setPlatformWidth();
+    ScrollTrigger.addEventListener('refreshInit', setPlatformWidth);
+
+    gsap.set(platformEl, { color: platforms[0].color });
+    gsap.set(platformWords, { yPercent: 115, opacity: 0 });
+    gsap.set(platformWords[0], { yPercent: 0, opacity: 1 });
+
+    const platformTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.pin-wrap--problem',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1.2
       }
     });
-  }
 
-  [
-    { at: '25%', enter: 1, back: 0 },
-    { at: '50%', enter: 2, back: 1 },
-    { at: '75%', enter: 0, back: 2 },
-  ].forEach(({ at, enter, back }) => {
-    ScrollTrigger.create({
-      trigger: '.pin-wrap--problem',
-      start: `top+=${at} top`,
-      onEnter:     () => swapPlatform(enter),
-      onLeaveBack: () => swapPlatform(back),
+    platforms.forEach((platform, index) => {
+      if (index === 0) return;
+
+      platformTl
+        .to(platformWords[index - 1], {
+          yPercent: -115,
+          opacity: 0,
+          duration: 1,
+          ease: 'power2.inOut'
+        })
+        .fromTo(platformWords[index], {
+          yPercent: 115,
+          opacity: 0
+        }, {
+          yPercent: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power2.inOut'
+        }, '<')
+        .to(platformEl, {
+          color: platform.color,
+          duration: 1,
+          ease: 'power2.inOut'
+        }, '<');
     });
-  });
+
+    platformTl
+      .to(platformWords[platformWords.length - 1], {
+        yPercent: -115,
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.inOut'
+      })
+      .fromTo(platformWords[0], {
+        yPercent: 115,
+        opacity: 0
+      }, {
+        yPercent: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power2.inOut'
+      }, '<')
+      .to(platformEl, {
+        color: platforms[0].color,
+        duration: 1,
+        ease: 'power2.inOut'
+      }, '<');
+  }
 
   /* ---------- 5. WHAT section: stats + not-list reveal ---------- */
   gsap.from('.what__h', {

@@ -310,9 +310,23 @@ em { font-style: normal; color: var(--accent); }
   margin-right: 0;
 }
 .prob__platform {
+  position: relative;
   display: inline-block;
   line-height: 1.08;
+  height: 1.08em;
   padding-bottom: 0.08em;
+  overflow: hidden;
+  vertical-align: baseline;
+}
+.prob__platform-word {
+  position: absolute;
+  inset: 0 auto auto 0;
+  display: block;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+.prob__platform-word:first-child {
+  position: relative;
 }
 .prob__after {
   padding: clamp(60px, 10vh, 140px) var(--pad) clamp(80px, 14vh, 200px);
