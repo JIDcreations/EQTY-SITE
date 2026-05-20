@@ -289,6 +289,16 @@
     opacity: 0.26
   });
   const steps = gsap.utils.toArray('.lstep');
+  steps.forEach(step => {
+    step.setAttribute('aria-pressed', step.classList.contains('on') ? 'true' : 'false');
+    step.addEventListener('click', () => activateLearningStep(step));
+    step.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        activateLearningStep(step);
+      }
+    });
+  });
   steps.forEach((step, i) => {
     ScrollTrigger.create({
       trigger: '.sec--learning .pin-wrap--learning',
@@ -486,6 +496,7 @@
   function activateLearningStep(step) {
     steps.forEach(s => s.classList.remove('on'));
     step.classList.add('on');
+    steps.forEach(s => s.setAttribute('aria-pressed', s === step ? 'true' : 'false'));
     switchScreen('#phoneLearn', step.dataset.target);
   }
 
