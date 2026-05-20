@@ -562,6 +562,8 @@ em { font-style: normal; color: var(--accent); }
   transition: opacity .55s var(--ease), transform .55s var(--ease);
   color: #F2F4F6;
   font-family: var(--sans);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 .screen.is-on { opacity: 1; transform: scale(1); z-index: 2; }
 
@@ -946,6 +948,8 @@ em { font-style: normal; color: var(--accent); }
   background: var(--bg);
   padding: 0;
   height: 320vh;
+  overflow: clip;
+  z-index: 1;
 }
 .show__head {
   position: absolute; top: 16vh; left: var(--pad);
@@ -1096,7 +1100,15 @@ em { font-style: normal; color: var(--accent); }
 /* =========================================================
    BRAND
    ========================================================= */
-.sec--brand { padding: 20vh var(--pad); }
+.sec--brand {
+  position: relative;
+  z-index: 3;
+  background: #F8FAFD;
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+  padding: clamp(88px, 11vh, 128px) var(--pad);
+}
 .brand__inner { width: 100%; max-width: none; margin: 0; }
 .brand__h {
   font-family: var(--serif); font-weight: 700;

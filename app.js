@@ -3,6 +3,39 @@
    ========================================================= */
 (() => {
   gsap.registerPlugin(ScrollTrigger);
+  gsap.defaults({
+    ease: 'power3.out',
+    duration: 1,
+    overwrite: 'auto'
+  });
+  ScrollTrigger.config({
+    ignoreMobileResize: true
+  });
+
+  const softSectionEnter = (target, trigger = target, options = {}) => {
+    const {
+      y = 64,
+      opacity = 0.24,
+      start = 'top bottom',
+      end = 'top 35%',
+      scrub = 1.05
+    } = options;
+
+    gsap.fromTo(target, {
+      y,
+      opacity
+    }, {
+      y: 0,
+      opacity: 1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger,
+        start,
+        end,
+        scrub
+      }
+    });
+  };
 
   /* ---------- 0. Clone the phone into the learning section ---------- */
   const phoneEl = document.getElementById('phone');
@@ -30,13 +63,13 @@
     const bg = sec.dataset.bg, fg = sec.dataset.fg, label = sec.dataset.label;
     gsap.to(document.body, {
       backgroundColor: bg, color: fg,
-      duration: .8, ease: 'power2.inOut',
+      duration: 1.05, ease: 'power2.out',
       overwrite: 'auto'
     });
     document.documentElement.style.setProperty('--bg', bg);
     document.documentElement.style.setProperty('--fg', fg);
     railLabel.textContent = label || '';
-    gsap.to(rail, { top: `calc(50% - 110px + ${(idx / (sections.length - 1)) * 220}px)`, duration: .6, ease: 'power2.out', overwrite: 'auto' });
+    gsap.to(rail, { top: `calc(50% - 110px + ${(idx / (sections.length - 1)) * 220}px)`, duration: .85, ease: 'power2.out', overwrite: 'auto' });
   };
 
   sections.forEach((sec, idx) => {
@@ -66,29 +99,21 @@
     yPercent: -18,
     scale: 1.04,
     ease: 'none',
-    scrollTrigger: { trigger: '.sec--hero', start: 'top top', end: 'bottom top', scrub: true }
+    scrollTrigger: { trigger: '.sec--hero', start: 'top top', end: 'bottom top', scrub: 1.15 }
   });
   gsap.to('.hv2-content', {
     yPercent: -8,
     opacity: 0,
     ease: 'none',
-    scrollTrigger: { trigger: '.sec--hero', start: 'top top', end: 'bottom top', scrub: true }
+    scrollTrigger: { trigger: '.sec--hero', start: 'top top', end: 'bottom top', scrub: 1.15 }
   });
 
   /* ---------- 4. Problem section — platform cycling ---------- */
-  gsap.fromTo('.prob__stage .prob__inner', {
+  softSectionEnter('.prob__stage .prob__inner', '.pin-wrap--problem', {
     y: 72,
-    opacity: 0.4
-  }, {
-    y: 0,
-    opacity: 1,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.pin-wrap--problem',
-      start: 'top bottom',
-      end: 'top 30%',
-      scrub: 1.1
-    }
+    opacity: 0.4,
+    end: 'top 30%',
+    scrub: 1.1
   });
 
   // Headline em reveal
@@ -200,17 +225,22 @@
   }
 
   /* ---------- 5. WHAT section: stats + not-list reveal ---------- */
+  softSectionEnter('.sec--what .pin-stage', '.sec--what', {
+    y: 72,
+    opacity: 0.28
+  });
   gsap.from('.what__h', {
     opacity: 0, y: 40,
-    scrollTrigger: { trigger: '.sec--what', start: 'top 70%' }
+    duration: 1.15,
+    scrollTrigger: { trigger: '.sec--what', start: 'top 72%' }
   });
   gsap.from('.what__stats .stat', {
-    opacity: 0, y: 24, stagger: .08,
-    scrollTrigger: { trigger: '.what__stats', start: 'top 75%' }
+    opacity: 0, y: 28, duration: 1.05, stagger: .1,
+    scrollTrigger: { trigger: '.what__stats', start: 'top 78%' }
   });
   gsap.from('.not__list li', {
-    opacity: 0, x: 30, stagger: .08,
-    scrollTrigger: { trigger: '.not__list', start: 'top 75%' }
+    opacity: 0, x: 30, duration: 0.95, stagger: .1,
+    scrollTrigger: { trigger: '.not__list', start: 'top 78%' }
   });
 
   // Phone (in WHAT) intro + parallax inside its pin
@@ -233,68 +263,75 @@
       trigger: '.sec--what .pin-wrap',
       start: `top+=${(i / whatScreens.length) * whatScreenSpan}% top`,
       end:   `top+=${((i + 1) / whatScreens.length) * whatScreenSpan}% top`,
-      onToggle: self => { if (self.isActive) switchScreen('#phone', s); }
+      onEnter: () => switchScreen('#phone', s),
+      onEnterBack: () => switchScreen('#phone', s)
     });
   });
 
   /* ---------- 6. LEARNING section: phone screen swap on scroll ---------- */
+  softSectionEnter('.learn__layout', '.sec--learning', {
+    y: 70,
+    opacity: 0.26
+  });
   const steps = gsap.utils.toArray('.lstep');
   steps.forEach((step, i) => {
     ScrollTrigger.create({
       trigger: '.sec--learning .pin-wrap--learning',
       start: `top+=${(i / steps.length) * 100}% top`,
       end:   `top+=${((i + 1) / steps.length) * 100}% top`,
-      onToggle: self => {
-        if (self.isActive) {
-          steps.forEach(s => s.classList.remove('on'));
-          step.classList.add('on');
-          switchScreen('#phoneLearn', step.dataset.target);
-        }
-      }
+      onEnter: () => activateLearningStep(step),
+      onEnterBack: () => activateLearningStep(step)
     });
   });
 
   // Phone learn intro
   gsap.from('#phoneLearn .phone__shell', {
     opacity: 0, y: 50, scale: .95,
-    duration: 1, ease: 'power3.out',
-    scrollTrigger: { trigger: '.sec--learning', start: 'top 60%' }
+    duration: 1.1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.sec--learning', start: 'top 64%' }
   });
   gsap.from('.learn__h', {
-    opacity: 0, y: 30,
-    scrollTrigger: { trigger: '.sec--learning', start: 'top 60%' }
+    opacity: 0, y: 34, duration: 1.05,
+    scrollTrigger: { trigger: '.sec--learning', start: 'top 68%' }
   });
   gsap.from('.lstep', {
-    opacity: 0, x: -20, stagger: .07,
-    scrollTrigger: { trigger: '.learn__steps', start: 'top 75%' }
+    opacity: 0, x: -24, duration: 0.95, stagger: .08,
+    scrollTrigger: { trigger: '.learn__steps', start: 'top 80%' }
   });
 
   /* ---------- 7. AI section ---------- */
-  gsap.from('.ai__h', { opacity: 0, y: 30, scrollTrigger: { trigger: '.ai__h', start: 'top 80%' } });
-  gsap.from('.ai__card', { opacity: 0, y: 40, stagger: .08, scrollTrigger: { trigger: '.ai__grid', start: 'top 80%' } });
-  gsap.from('.ai__foot', { opacity: 0, y: 20, scrollTrigger: { trigger: '.ai__foot', start: 'top 85%' } });
+  softSectionEnter('.ai__inner', '.sec--ai');
+  gsap.from('.ai__h', { opacity: 0, y: 36, duration: 1.1, scrollTrigger: { trigger: '.ai__h', start: 'top 82%' } });
+  gsap.from('.ai__card', { opacity: 0, y: 44, duration: 1, stagger: .1, scrollTrigger: { trigger: '.ai__grid', start: 'top 84%' } });
+  gsap.from('.ai__foot', { opacity: 0, y: 26, duration: 1.05, scrollTrigger: { trigger: '.ai__foot', start: 'top 88%' } });
 
   /* ---------- 8. Philosophy section ---------- */
+  softSectionEnter('.philo__inner', '.sec--philo');
   gsap.from('.philo__h', {
-    opacity: 0, y: 40,
-    scrollTrigger: { trigger: '.philo__h', start: 'top 80%' }
+    opacity: 0, y: 40, duration: 1.1,
+    scrollTrigger: { trigger: '.philo__h', start: 'top 82%' }
   });
   gsap.from('.philo__col--neg li', {
-    opacity: 0, x: -30, stagger: .08,
-    scrollTrigger: { trigger: '.philo__cols', start: 'top 75%' }
+    opacity: 0, x: -30, duration: 0.95, stagger: .09,
+    scrollTrigger: { trigger: '.philo__cols', start: 'top 80%' }
   });
   gsap.from('.philo__col--pos li', {
-    opacity: 0, x: 30, stagger: .08,
-    scrollTrigger: { trigger: '.philo__cols', start: 'top 75%' }
+    opacity: 0, x: 30, duration: 0.95, stagger: .09,
+    scrollTrigger: { trigger: '.philo__cols', start: 'top 80%' }
   });
   gsap.from('.philo__quote', {
-    opacity: 0, scale: .92,
-    scrollTrigger: { trigger: '.philo__quote', start: 'top 80%' }
+    opacity: 0, scale: .94, y: 24, duration: 1.2,
+    scrollTrigger: { trigger: '.philo__quote', start: 'top 84%' }
   });
 
   /* ---------- 9. Showcase: horizontal scroll ---------- */
   const rail2 = document.getElementById('showRail');
   if (rail2) {
+    softSectionEnter('.show__head', '.sec--showcase', {
+      y: 56,
+      opacity: 0.3,
+      end: 'top 40%'
+    });
     const totalScroll = () => rail2.scrollWidth - window.innerWidth + 80;
     gsap.to(rail2, {
       x: () => -totalScroll(),
@@ -302,52 +339,139 @@
       scrollTrigger: {
         trigger: '.sec--showcase',
         start: 'top top',
-        end: () => `+=${totalScroll() + window.innerHeight}`,
-        scrub: 1,
+        end: () => `+=${totalScroll() + window.innerHeight * 0.35}`,
+        scrub: 1.15,
         pin: '.show__track',
         invalidateOnRefresh: true
       }
     });
+    gsap.from('.show__card', {
+      opacity: 0,
+      y: 42,
+      scale: 0.97,
+      duration: 1,
+      stagger: 0.08,
+      scrollTrigger: { trigger: '.show__track', start: 'top 78%' }
+    });
     gsap.from('.show__h', {
-      opacity: 0, y: 30,
-      scrollTrigger: { trigger: '.show__head', start: 'top 80%' }
+      opacity: 0, y: 30, duration: 1.05,
+      scrollTrigger: { trigger: '.show__head', start: 'top 82%' }
     });
   }
 
   /* ---------- 10. Brand grid ---------- */
-  gsap.from('.brand__h', { opacity: 0, y: 30, scrollTrigger: { trigger: '.brand__h', start: 'top 80%' } });
-  gsap.from('.brand__cell', { opacity: 0, y: 20, stagger: .06, scrollTrigger: { trigger: '.brand__grid', start: 'top 80%' } });
+  softSectionEnter('.brand__inner', '.sec--brand');
+  gsap.from('.brand__h', { opacity: 0, y: 34, duration: 1.05, scrollTrigger: { trigger: '.brand__h', start: 'top 82%' } });
+  gsap.from('.brand__cell', { opacity: 0, y: 24, duration: 0.95, stagger: .07, scrollTrigger: { trigger: '.brand__grid', start: 'top 84%' } });
 
   /* ---------- 11. Vision lines ---------- */
+  softSectionEnter('.vision__inner', '.sec--vision');
   gsap.utils.toArray('.vline').forEach((line, i) => {
     gsap.to(line, {
       opacity: 1, y: 0,
-      duration: 1, ease: 'power3.out',
-      scrollTrigger: { trigger: line, start: 'top 78%' }
+      duration: 1.05, ease: 'power3.out',
+      scrollTrigger: { trigger: line, start: 'top 82%' }
     });
   });
   gsap.from('.vision__sub', {
-    opacity: 0, y: 20,
-    scrollTrigger: { trigger: '.vision__sub', start: 'top 85%' }
+    opacity: 0, y: 24, duration: 1.05,
+    scrollTrigger: { trigger: '.vision__sub', start: 'top 88%' }
   });
 
   /* ---------- 12. CTA ---------- */
-  gsap.from('.cta__h', { opacity: 0, scale: .92, scrollTrigger: { trigger: '.cta__h', start: 'top 80%' }, duration: 1.2, ease: 'power3.out' });
-  gsap.from('.cta__sub', { opacity: 0, y: 20, scrollTrigger: { trigger: '.cta__sub', start: 'top 85%' } });
-  gsap.from('.cta__form', { opacity: 0, y: 30, scrollTrigger: { trigger: '.cta__form', start: 'top 85%' } });
-  gsap.from('.foot > *', { opacity: 0, y: 20, stagger: .1, scrollTrigger: { trigger: '.foot', start: 'top 90%' } });
+  softSectionEnter('.cta__inner', '.sec--cta', {
+    y: 54,
+    opacity: 0.36,
+    end: 'top 42%'
+  });
+  gsap.from('.cta__h', { opacity: 0, scale: .94, scrollTrigger: { trigger: '.cta__h', start: 'top 82%' }, duration: 1.2, ease: 'power3.out' });
+  gsap.from('.cta__sub', { opacity: 0, y: 24, duration: 1.05, scrollTrigger: { trigger: '.cta__sub', start: 'top 88%' } });
+  gsap.from('.cta__form', { opacity: 0, y: 30, duration: 1.1, scrollTrigger: { trigger: '.cta__form', start: 'top 88%' } });
+  gsap.from('.foot > *', { opacity: 0, y: 20, duration: 0.9, stagger: .1, scrollTrigger: { trigger: '.foot', start: 'top 92%' } });
 
   /* ---------- Helpers ---------- */
   function switchScreen(phoneSel, name) {
     const phone = document.querySelector(phoneSel);
     if (!phone) return;
-    let activeScreen = null;
-    phone.querySelectorAll('.screen').forEach(s => {
-      const isActive = s.dataset.screen === name;
-      s.classList.toggle('is-on', isActive);
-      if (isActive) activeScreen = s;
+    const screens = Array.from(phone.querySelectorAll('.screen'));
+    const nextScreen = screens.find(screen => screen.dataset.screen === name);
+    if (!nextScreen) return;
+
+    const currentScreen = screens.find(screen => screen.classList.contains('is-on'));
+    const phoneShell = phone.querySelector('.phone__shell');
+
+    if (currentScreen === nextScreen) {
+      phone.classList.toggle('phone--image-mode', nextScreen.classList.contains('screen--image'));
+      return;
+    }
+
+    phone.classList.toggle('phone--image-mode', nextScreen.classList.contains('screen--image'));
+
+    screens.forEach(screen => {
+      gsap.killTweensOf(screen);
+      if (screen !== currentScreen && screen !== nextScreen) {
+        screen.classList.remove('is-on');
+        gsap.set(screen, { autoAlpha: 0, scale: 0.965, y: 0, clearProps: 'zIndex' });
+      }
     });
-    phone.classList.toggle('phone--image-mode', !!activeScreen?.classList.contains('screen--image'));
+
+    if (currentScreen) {
+      currentScreen.classList.add('is-on');
+      gsap.set(currentScreen, { autoAlpha: 1, scale: 1, y: 0, zIndex: 2 });
+    }
+
+    nextScreen.classList.add('is-on');
+    gsap.set(nextScreen, { autoAlpha: 0, scale: 1.025, y: 18, zIndex: 3 });
+
+    const switchTl = gsap.timeline({
+      defaults: {
+        ease: 'power2.inOut'
+      },
+      onComplete: () => {
+        screens.forEach(screen => {
+          const isActive = screen === nextScreen;
+          screen.classList.toggle('is-on', isActive);
+          gsap.set(screen, {
+            autoAlpha: isActive ? 1 : 0,
+            scale: isActive ? 1 : 0.965,
+            y: 0,
+            clearProps: 'zIndex'
+          });
+        });
+      }
+    });
+
+    if (currentScreen) {
+      switchTl.to(currentScreen, {
+        autoAlpha: 0,
+        scale: 0.975,
+        y: -14,
+        duration: 0.38
+      }, 0);
+    }
+
+    switchTl.to(nextScreen, {
+      autoAlpha: 1,
+      scale: 1,
+      y: 0,
+      duration: 0.54
+    }, currentScreen ? 0.08 : 0);
+
+    if (phoneShell) {
+      switchTl.to(phoneShell, {
+        rotateY: '+=4',
+        duration: 0.22,
+        yoyo: true,
+        repeat: 1,
+        ease: 'power1.inOut'
+      }, 0);
+    }
+  }
+
+  function activateLearningStep(step) {
+    steps.forEach(s => s.classList.remove('on'));
+    step.classList.add('on');
+    switchScreen('#phoneLearn', step.dataset.target);
   }
 
   // Refresh after fonts load (Filson Pro / Inter) to remeasure pin offsets
