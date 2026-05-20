@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EQTY — Investing starts long before your first investment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="typography-tokens.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="hero-v2.css">
+</head>
+<body>
+
+<!-- =================== NAV =================== -->
+<nav class="nav" id="nav">
+  <a href="#hero" class="nav__logo" aria-label="EQTY">
+    <svg viewBox="0 0 608.17 533.58" aria-hidden="true">
+      <g fill="currentColor">
+        <path d="M0,485.76v-162.49h107.94v28.55H35.98v39.92h62.44v28.55h-62.44v36.91h71.96v28.55H0Z"/>
+        <path d="M292.94,520.81c-8.59,5.8-22.05,12.77-40.85,12.77-31.8,0-52.92-21.12-54.09-46.43-39.23-7.43-70.57-41.55-70.57-82.64,0-46.19,38.3-83.8,84.96-83.8s84.73,37.61,84.73,83.8c0,38.53-29.02,72.19-64.99,81.48.7,12.3,9.75,18.11,22.75,18.11,7.2,0,18.8-3.25,26.93-8.59l11.14,25.3ZM212.39,455.36c26.93,0,48.75-21.12,48.75-50.84s-21.82-50.83-48.75-50.83-48.98,21.12-48.98,50.83,22.05,50.84,48.98,50.84Z"/>
+        <path d="M435.24,323.28v30.18h-46.19v132.31h-35.52v-132.31h-45.73v-30.18h127.44Z"/>
+        <path d="M527.85,386.65l38.53-63.37h41.78v4.64l-62.44,91.22v66.62h-35.98v-66.15l-62.44-91.69v-4.64h41.78l38.53,63.37h.23Z"/>
+      </g>
+      <polygon fill="var(--accent)" points="441.33 152.68 366.25 227.8 164.8 227.84 164.44 227.84 145.18 152.4 199.43 60.96 394.91 11.14 340.72 102.48 156.19 152.46 157.39 157.63 173.69 218.59 239.6 152.65 441.33 152.68"/>
+    </svg>
+  </a>
+  <ul class="nav__links">
+    <li><a href="#problem">About</a></li>
+    <li><a href="#learning">Features</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#cta" class="nav__cta">Waitlist</a></li>
+  </ul>
+</nav>
+
+<!-- =================== PROGRESS RAIL =================== -->
+<div class="rail" aria-hidden="true">
+  <div class="rail__track"></div>
+  <div class="rail__dot" id="railDot"></div>
+  <div class="rail__label" id="railLabel">00 · Intro</div>
+</div>
+
+<!-- =================== HERO V3 — Calm 3D phone scene with orbiting EQTY cards =================== -->
+<section class="sec sec--hero hv2" id="hero" data-bg="#0A0D12" data-fg="#F2F4F6" data-label="00 · Intro" data-screen-label="00 Hero">
+
+  <!-- Ambient: soft glow + faint grid + very faint mark in the distance -->
+  <div class="hv2-amb" aria-hidden="true">
+    <div class="hv2-amb__glow"></div>
+    <div class="hv2-amb__grid"></div>
+    <div class="hv2-amb__mark">
+      <svg viewBox="0 0 1089.79 852.52"><polygon fill="currentColor" points="1072.77 543.97 806.46 810.4 92 810.54 90.73 810.54 22.42 542.97 214.8 218.69 908.13 41.98 715.91 365.93 61.44 543.21 65.72 561.54 123.52 777.72 357.3 543.86 1072.77 543.97"/></svg>
+    </div>
+  </div>
+
+  <!-- Two-column layout: content left, 3D scene right -->
+  <div class="hv2-grid">
+
+    <!-- LEFT: headline + sub + cta -->
+    <div class="hv2-content">
+      <h1 class="hero__h hv2-h">
+        <span class="hero__line">
+          <span class="hv2-line">
+            <span class="hv2-w" data-d="22">Understand</span>
+          </span>
+        </span>
+        <span class="hero__line">
+          <span class="hv2-line">
+            <em class="hv2-w hv2-em" data-d="18">before</em>
+            <span class="hv2-w" data-d="10">you</span>
+            <span class="hv2-w" data-d="20">invest.</span>
+          </span>
+        </span>
+      </h1>
+      <p class="hero__sub hv2-sub" data-d="6">A calm, intelligent learning environment that prepares first-time investors — before they risk a single euro.</p>
+      <div class="hero__cta hv2-cta">
+        <a href="#cta" class="btn btn--primary">Join the waitlist</a>
+        <a href="#problem" class="btn btn--ghost">
+          <span>Explore EQTY</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14m0 0l-6-6m6 6l6-6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT: layered app composition -->
+    <div class="hv2-scene" id="hv2Scene" aria-hidden="true">
+      <div class="hv2-world" id="hv2World">
+        <div class="hv2-artwork">
+          <img src="assets/Frames/Home+Welcome.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== PROBLEM =================== -->
+<section class="sec sec--problem pin-section" id="problem" data-bg="#12161C" data-fg="#F2F4F6" data-label="01 · The Problem">
+  <div class="pin-wrap pin-wrap--problem">
+    <div class="prob__stage">
+      <div class="prob__inner">
+        <div class="sec__num">01</div>
+        <div class="sec__kicker">The state of things</div>
+        <h2 class="prob__h">
+          <span class="line">Most people</span>
+          <span class="line">learn investing</span>
+          <span class="line">from <em class="prob__platform">TikTok.</em></span>
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="prob__after">
+    <div class="prob__inner">
+      <div class="prob__list" aria-hidden="true">
+        <div class="prob__word" data-i="0">FOMO.</div>
+        <div class="prob__word" data-i="1">Hype.</div>
+        <div class="prob__word" data-i="2">Influencers.</div>
+        <div class="prob__word" data-i="3">Impulsive decisions.</div>
+        <div class="prob__word" data-i="4">No preparation.</div>
+      </div>
+      <div class="prob__shift">
+        <span class="shift__rule"></span>
+        <p>There's a better way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== WHAT EQTY IS (pinned phone) =================== -->
+<section class="sec sec--what pin-section" id="what" data-bg="#1B2432" data-fg="#F2F4F6" data-label="02 · What EQTY is">
+  <div class="what__bg" aria-hidden="true"></div>
+
+  <div class="pin-wrap">
+    <div class="pin-stage">
+      <!-- LEFT TEXT COLUMN -->
+      <div class="what__left">
+        <div class="sec__num">02</div>
+        <div class="sec__kicker">WHAT IS EQTY</div>
+        <h2 class="what__h">Not a broker.<br><em>It's a preparation layer.</em></h2>
+
+        <div class="what__stats">
+          <div class="stat"><span class="stat__n">26</span><span class="stat__l">Lessons</span></div>
+          <div class="stat"><span class="stat__n">08</span><span class="stat__l">Themes</span></div>
+          <div class="stat"><span class="stat__n">00</span><span class="stat__l">Financial advice</span></div>
+          <div class="stat"><span class="stat__n">100</span><span class="stat__l">% Preparation</span></div>
+        </div>
+      </div>
+
+      <!-- PHONE -->
+      <div class="phone phone--image-mode" id="phone">
+        <div class="phone__shell">
+          <div class="phone__notch"></div>
+          <div class="phone__screen" id="phoneScreen">
+            <!-- screens stacked, toggled by JS -->
+            <div class="screen screen--image is-on" data-screen="what-lessonoverview" aria-label="Lesson Overview preview">
+              <img class="screen__img" src="assets/Frames/Lessonoverview.png" alt="Lesson Overview screen">
+            </div>
+
+            <div class="screen screen--image" data-screen="what-bronnen" aria-label="Bronnen preview">
+              <img class="screen__img" src="assets/Frames/Bronnen.png" alt="Bronnen screen">
+            </div>
+
+            <div class="screen screen--image" data-screen="what-praktischeoefening" aria-label="Praktische oefening preview">
+              <img class="screen__img" src="assets/Frames/PraktischeOefening.png" alt="Praktische oefening screen">
+            </div>
+
+            <div class="screen screen--lessons" data-screen="lessons">
+              <div class="s-status"><span>9:41</span><span class="s-status__dots"></span></div>
+              <div class="s-head">
+                <span class="s-chev">‹</span>
+                <span class="s-title">Lesson Overview</span>
+                <span class="s-prof">⌒</span>
+              </div>
+              <div class="s-tabs"><span class="on">All themes</span><span>Per theme</span></div>
+              <div class="s-section">
+                <div class="s-theme">THEME 1 · BASIS</div>
+                <div class="s-row"><span class="dot dot--y"></span><div><b>Investing as a process</b><i>5 lessons</i></div></div>
+                <div class="s-theme">THEME 2 · DUEL</div>
+                <div class="s-row"><span class="dot"></span><div><b>Why invest at all?</b><i>3 lessons</i></div></div>
+                <div class="s-row"><span class="dot"></span><div><b>Investing Explained: goals</b><i>4 lessons</i></div></div>
+                <div class="s-theme">THEME 3 · DEEPER</div>
+                <div class="s-row"><span class="dot"></span><div><b>Risk and time horizon</b><i>4 lessons</i></div></div>
+                <div class="s-row"><span class="dot"></span><div><b>Building a portfolio</b><i>3 lessons</i></div></div>
+              </div>
+              <div class="s-nav"><span class="on">Home</span><span>Lessons</span><span>Glossary</span></div>
+            </div>
+
+            <div class="screen screen--video" data-screen="video">
+              <div class="s-status"><span>9:41</span><span class="s-status__dots"></span></div>
+              <div class="s-head"><span class="s-chev">‹</span><span class="s-title">Videos</span><span class="s-prof">⌒</span></div>
+              <div class="s-videowrap">
+                <div class="s-vid"><div class="s-vid__play">▶</div></div>
+                <div class="s-vid__meta">
+                  <div class="s-theme">THEME 1 · LES 1</div>
+                  <b>Investing as a process</b>
+                  <p>An intro to the process behind every meaningful investment decision.</p>
+                  <button class="s-yellow">Watch now</button>
+                </div>
+              </div>
+              <div class="s-nav"><span>Home</span><span>Lessons</span><span class="on">Videos</span></div>
+            </div>
+
+            <div class="screen screen--swipe" data-screen="swipe">
+              <div class="s-status"><span>9:41</span><span class="s-status__dots"></span></div>
+              <div class="s-head"><span class="s-chev">‹</span><span class="s-title">Lesson 3 · Risk</span><span>•</span></div>
+              <div class="s-card s-card--main">
+                <div class="s-card__step">STEP 02 · VISUAL</div>
+                <div class="s-card__h">6 steps before investing.</div>
+                <div class="s-card__body">Plot your plan before you commit. Each step builds on the one before.</div>
+                <div class="s-card__cta">Read further</div>
+              </div>
+              <div class="s-cardstack">
+                <div class="s-mini"><span>Goal setting</span></div>
+                <div class="s-mini"><span>Risk analysis</span></div>
+                <div class="s-mini on"><span>Financial vehicles</span></div>
+                <div class="s-mini"><span>Allocation</span></div>
+              </div>
+              <button class="s-yellow s-yellow--btm">Next</button>
+              <div class="s-nav"><span>Home</span><span class="on">Lessons</span><span>Glossary</span></div>
+            </div>
+
+            <div class="screen screen--glossary" data-screen="glossary">
+              <div class="s-status"><span>9:41</span><span class="s-status__dots"></span></div>
+              <div class="s-head"><span class="s-chev">‹</span><span class="s-title">Glossary</span><span class="s-prof">⌒</span></div>
+              <div class="s-search">⌕ Search terms, tags or categories</div>
+              <div class="s-tabs s-tabs--pill"><span class="on">All</span><span>Assets</span><span>Risk</span><span>Markets</span></div>
+              <div class="s-glossary">
+                <div class="s-row"><span class="dot dot--y"></span><div><b>Asset</b><p>A resource with economic value that you own or control.</p></div></div>
+                <div class="s-row"><span class="dot"></span><div><b>Equity</b><p>Ownership interest in a company, held as shares.</p></div></div>
+                <div class="s-row"><span class="dot"></span><div><b>Liquidity</b><p>How easily an asset can be traded without affecting its price.</p></div></div>
+                <div class="s-row"><span class="dot"></span><div><b>Volatility</b><p>The degree of variation in an asset's price over time.</p></div></div>
+              </div>
+              <div class="s-nav"><span>Home</span><span>Lessons</span><span class="on">Glossary</span></div>
+            </div>
+
+            <div class="screen screen--reflect" data-screen="reflect">
+              <div class="s-status"><span>9:41</span><span class="s-status__dots"></span></div>
+              <div class="s-head"><span class="s-chev">‹</span><span class="s-title">Reflection · 5/8</span><span>•</span></div>
+              <div class="s-card s-card--ref">
+                <div class="s-card__step">REFLECTION</div>
+                <div class="s-card__h">Is there one thing you've learned this lesson, that you still want to apply?</div>
+                <textarea placeholder="Write your answer..."></textarea>
+              </div>
+              <button class="s-yellow s-yellow--btm">Save answer</button>
+              <div class="s-nav"><span>Home</span><span class="on">Lessons</span><span>Glossary</span></div>
+            </div>
+
+            <div class="screen screen--done" data-screen="done">
+              <div class="s-status"><span>9:41</span><span class="s-status__dots"></span></div>
+              <div class="s-done">
+                <div class="s-done__check">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#111317" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg>
+                </div>
+                <h3>Well done.</h3>
+                <p>You completed the foundation of the investment process.</p>
+                <button class="s-yellow">To home</button>
+              </div>
+              <div class="s-nav"><span class="on">Home</span><span>Lessons</span><span>Glossary</span></div>
+            </div>
+
+            <div class="screen screen--onb" data-screen="onb">
+              <div class="s-status"><span>9:41</span><span class="s-status__dots"></span></div>
+              <div class="s-onb">
+                <div class="s-onb__num">THEMA 01</div>
+                <h3>What sounds familiar?</h3>
+                <div class="s-onb__opts">
+                  <div class="s-onb__opt on">ETFs</div>
+                  <div class="s-onb__opt">Risk-spreading</div>
+                  <div class="s-onb__opt">Long-term investing</div>
+                  <div class="s-onb__opt">None of these</div>
+                </div>
+              </div>
+              <button class="s-yellow s-yellow--btm">Next</button>
+            </div>
+          </div>
+          <div class="phone__home"></div>
+        </div>
+        <div class="phone__shadow"></div>
+      </div>
+
+      <!-- RIGHT: NOT block -->
+      <div class="what__right">
+        <div class="not__tag">EQTY is NOT</div>
+        <ul class="not__list">
+          <li><ion-icon class="not__icon" name="close-sharp" aria-hidden="true"></ion-icon>Trading</li>
+          <li><ion-icon class="not__icon" name="close-sharp" aria-hidden="true"></ion-icon>Hype</li>
+          <li><ion-icon class="not__icon" name="close-sharp" aria-hidden="true"></ion-icon>Stock predictions</li>
+          <li><ion-icon class="not__icon" name="close-sharp" aria-hidden="true"></ion-icon>Financial advice</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== LEARNING (phone stays pinned, switches screens) =================== -->
+<section class="sec sec--learning pin-section" id="learning" data-bg="#12161C" data-fg="#F2F4F6" data-label="03 · The Experience">
+  <div class="pin-wrap pin-wrap--learning">
+    <div class="learn__layout">
+      <div class="learn__copy">
+        <div class="sec__num">03</div>
+        <div class="sec__kicker">The learning experience</div>
+        <h2 class="learn__h">One layer at a time.</h2>
+
+        <div class="learn__steps" id="learnSteps">
+          <div class="lstep on" data-target="onb"><span>01</span><div><b>Onboarding</b><p>A short calibration: what do you know, what do you want to learn.</p></div></div>
+          <div class="lstep" data-target="lessons"><span>02</span><div><b>Lesson interface</b><p>26 lessons across 8 themes. Clean, paced, deeply readable.</p></div></div>
+          <div class="lstep" data-target="swipe"><span>03</span><div><b>Swipeable cards</b><p>Big ideas broken into bite-sized cards you can move through.</p></div></div>
+          <div class="lstep" data-target="glossary"><span>04</span><div><b>Glossary</b><p>Every term, in plain language. Always one tap away.</p></div></div>
+          <div class="lstep" data-target="reflect"><span>05</span><div><b>Reflection</b><p>Write what you think. Slow down. Make it stick.</p></div></div>
+          <div class="lstep" data-target="done"><span>06</span><div><b>Progress tracking</b><p>You'll see exactly how far you've come — and what's next.</p></div></div>
+        </div>
+      </div>
+
+      <!-- The phone here is a sibling — we reuse the pinned phone from #what visually via a second placeholder. -->
+      <div class="learn__phone-slot" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== AI INSIDE EQTY =================== -->
+<section class="sec sec--ai" id="ai" data-bg="#0F141B" data-fg="#F2F4F6" data-label="04 · AI inside EQTY">
+  <div class="ai__bg" aria-hidden="true">
+    <div class="ai__pulse"></div>
+    <div class="ai__pulse ai__pulse--2"></div>
+  </div>
+
+  <div class="ai__inner">
+    <div class="sec__num">04</div>
+    <div class="sec__kicker">AI inside EQTY</div>
+    <h2 class="ai__h">
+      AI that <em>teaches.</em><br>
+      Not AI that <em>trades.</em>
+    </h2>
+
+    <div class="ai__grid">
+      <div class="ai__card"><div class="ai__icon">↗</div><b>Adapts explanations to your level</b><p>Same lesson, different depth — depending on what you already know.</p></div>
+      <div class="ai__card"><div class="ai__icon">⊕</div><b>Contextualises examples</b><p>Examples chosen for your situation, not a generic audience.</p></div>
+      <div class="ai__card"><div class="ai__icon">×</div><b>Never recommends stocks</b><p>Not now. Not ever. That's a hard product principle.</p></div>
+      <div class="ai__card"><div class="ai__icon">×</div><b>Never gives financial advice</b><p>EQTY teaches, you decide. The roles never mix.</p></div>
+    </div>
+    <div class="ai__foot">Just smarter <em>learning.</em></div>
+  </div>
+</section>
+
+<!-- =================== PHILOSOPHY =================== -->
+<section class="sec sec--philo" id="philosophy" data-bg="#F2F4F6" data-fg="#111317" data-label="05 · Philosophy">
+  <div class="philo__inner">
+    <div class="sec__num philo__num">05</div>
+    <div class="sec__kicker">Philosophy</div>
+
+    <h2 class="philo__h">Designed to <em>slow</em> things down.</h2>
+
+    <div class="philo__cols">
+      <div class="philo__col philo__col--neg">
+        <div class="col__label">— Without</div>
+        <ul>
+          <li>No dopamine loops</li>
+          <li>No manipulative UX</li>
+          <li>No fake urgency</li>
+          <li>No notification addiction</li>
+        </ul>
+      </div>
+      <div class="philo__col philo__col--pos">
+        <div class="col__label">+ With</div>
+        <ul>
+          <li>Clarity</li>
+          <li>Discipline</li>
+          <li>Long-term thinking</li>
+          <li>Awareness</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="philo__quote">
+      <span class="philo__quote-mark">"</span>
+      Investing is not entertainment.
+    </div>
+  </div>
+</section>
+
+<!-- =================== DEEP APP SHOWCASE (horizontal) =================== -->
+<section class="sec sec--showcase pin-section" id="showcase" data-bg="#0A0D12" data-fg="#F2F4F6" data-label="06 · Deep showcase">
+  <div class="show__head">
+    <div class="sec__num">06</div>
+    <div class="sec__kicker">Deep app showcase</div>
+    <h2 class="show__h">Detail by detail.</h2>
+  </div>
+
+  <div class="show__track" id="showTrack">
+    <div class="show__rail" id="showRail">
+      <div class="show__card show__card--dark">
+        <div class="show__cap"><span>Dark mode</span><i>Lesson interface</i></div>
+        <div class="show__phone">
+          <div class="mini-screen mini-screen--lessons">
+            <div class="mini-top">Lessons</div>
+            <div class="mini-row on"><span></span>Investing as a process</div>
+            <div class="mini-row"><span></span>Risk vs. time horizon</div>
+            <div class="mini-row"><span></span>Building a portfolio</div>
+            <div class="mini-row"><span></span>Behavioural finance</div>
+            <div class="mini-row"><span></span>Tax & costs</div>
+          </div>
+        </div>
+      </div>
+      <div class="show__card show__card--light">
+        <div class="show__cap"><span>White mode</span><i>Glossary entry</i></div>
+        <div class="show__phone show__phone--light">
+          <div class="mini-screen mini-screen--gloss">
+            <div class="mini-top mini-top--light">Glossary</div>
+            <div class="mini-term">Volatility</div>
+            <div class="mini-def">The degree of variation in an asset's price over time — a measure of risk, not return.</div>
+            <div class="mini-tag">Risk · Markets</div>
+          </div>
+        </div>
+      </div>
+      <div class="show__card show__card--type">
+        <div class="show__cap"><span>Typography</span><i>Filson Pro · Inter</i></div>
+        <div class="show__big">
+          <div class="show__big-display">Aa</div>
+          <div class="show__big-spec">
+            <div><b>Filson Pro Bold</b><span>Headlines · 26 / 32 / 48</span></div>
+            <div><b>Inter</b><span>Body · 14 / 16 / 20</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="show__card show__card--motion">
+        <div class="show__cap"><span>Micro-interactions</span><i>Pressed states · 120ms</i></div>
+        <div class="show__motion">
+          <div class="motion-btn">Start lesson<i></i></div>
+          <div class="motion-toggle"><span></span></div>
+          <div class="motion-chip">Risk-spreading</div>
+          <div class="motion-chip motion-chip--on">ETFs</div>
+        </div>
+      </div>
+      <div class="show__card show__card--ds">
+        <div class="show__cap"><span>Design system</span><i>Colors · Spacing · Grid</i></div>
+        <div class="show__ds">
+          <div class="ds-swatch" style="--c:#12161C"><span>App bg</span><i>#12161C</i></div>
+          <div class="ds-swatch" style="--c:#1B2432"><span>Surface</span><i>#1B2432</i></div>
+          <div class="ds-swatch ds-swatch--y" style="--c:#FFD500"><span>Accent</span><i>#FFD500</i></div>
+          <div class="ds-swatch ds-swatch--y2" style="--c:#FFF6CC"><span>Accent @12</span><i>#FFF6CC</i></div>
+          <div class="ds-swatch" style="--c:#F8FAFD;color:#111"><span>Surface (W)</span><i>#F8FAFD</i></div>
+          <div class="ds-swatch" style="--c:#0F7792"><span>Divider</span><i>#0F7792</i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== BRANDING =================== -->
+<section class="sec sec--brand" id="brand" data-bg="#F8FAFD" data-fg="#111317" data-label="07 · Brand">
+  <div class="brand__inner">
+    <div class="sec__num philo__num">07</div>
+    <div class="sec__kicker">Branding & design</div>
+    <h2 class="brand__h"><em>Premium.</em> Calm. <em>Intelligent.</em></h2>
+
+    <div class="brand__grid">
+      <div class="brand__cell brand__cell--mark">
+        <div class="brand__mark">
+          <svg viewBox="0 0 1089.79 852.52"><polygon fill="#111317" points="1072.77 543.97 806.46 810.4 92 810.54 90.73 810.54 22.42 542.97 214.8 218.69 908.13 41.98 715.91 365.93 61.44 543.21 65.72 561.54 123.52 777.72 357.3 543.86 1072.77 543.97"/></svg>
+        </div>
+        <div class="brand__lbl">Icon · Black</div>
+      </div>
+      <div class="brand__cell brand__cell--markY">
+        <div class="brand__mark"><svg viewBox="0 0 1089.79 852.52"><polygon fill="#FFD500" points="1072.77 543.97 806.46 810.4 92 810.54 90.73 810.54 22.42 542.97 214.8 218.69 908.13 41.98 715.91 365.93 61.44 543.21 65.72 561.54 123.52 777.72 357.3 543.86 1072.77 543.97"/></svg></div>
+        <div class="brand__lbl brand__lbl--inv">Icon · Accent</div>
+      </div>
+      <div class="brand__cell brand__cell--word">
+        <div class="brand__word">
+          <svg viewBox="0 0 608.17 533.58">
+            <g fill="#111317">
+              <path d="M0,485.76v-162.49h107.94v28.55H35.98v39.92h62.44v28.55h-62.44v36.91h71.96v28.55H0Z"/>
+              <path d="M292.94,520.81c-8.59,5.8-22.05,12.77-40.85,12.77-31.8,0-52.92-21.12-54.09-46.43-39.23-7.43-70.57-41.55-70.57-82.64,0-46.19,38.3-83.8,84.96-83.8s84.73,37.61,84.73,83.8c0,38.53-29.02,72.19-64.99,81.48.7,12.3,9.75,18.11,22.75,18.11,7.2,0,18.8-3.25,26.93-8.59l11.14,25.3ZM212.39,455.36c26.93,0,48.75-21.12,48.75-50.84s-21.82-50.83-48.75-50.83-48.98,21.12-48.98,50.83,22.05,50.84,48.98,50.84Z"/>
+              <path d="M435.24,323.28v30.18h-46.19v132.31h-35.52v-132.31h-45.73v-30.18h127.44Z"/>
+              <path d="M527.85,386.65l38.53-63.37h41.78v4.64l-62.44,91.22v66.62h-35.98v-66.15l-62.44-91.69v-4.64h41.78l38.53,63.37h.23Z"/>
+            </g>
+            <polygon fill="#FFD500" points="441.33 152.68 366.25 227.8 164.8 227.84 164.44 227.84 145.18 152.4 199.43 60.96 394.91 11.14 340.72 102.48 156.19 152.46 157.39 157.63 173.69 218.59 239.6 152.65 441.33 152.68"/>
+          </svg>
+        </div>
+        <div class="brand__lbl">Wordmark · Vertical</div>
+      </div>
+
+      <div class="brand__cell brand__cell--colors">
+        <div class="brand__lbl">Palette</div>
+        <div class="brand__sw"><span style="background:#12161C"></span><i>#12161C</i></div>
+        <div class="brand__sw"><span style="background:#1B2432"></span><i>#1B2432</i></div>
+        <div class="brand__sw"><span style="background:#FFD500"></span><i>#FFD500</i></div>
+        <div class="brand__sw"><span style="background:#F2F4F6;border:1px solid #E6EBF2"></span><i>#F2F4F6</i></div>
+      </div>
+
+      <div class="brand__cell brand__cell--type">
+        <div class="brand__lbl">Display</div>
+        <div class="brand__type-d">Aa</div>
+        <div class="brand__type-name">Filson Pro Bold</div>
+      </div>
+      <div class="brand__cell brand__cell--type2">
+        <div class="brand__lbl">Body</div>
+        <div class="brand__type-d brand__type-d--inter">Aa</div>
+        <div class="brand__type-name">Inter · 300–700</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== VISION =================== -->
+<section class="sec sec--vision" id="vision" data-bg="#0A0D12" data-fg="#F2F4F6" data-label="08 · Vision">
+  <div class="vision__inner">
+    <div class="sec__num">08</div>
+    <div class="sec__kicker">Vision</div>
+
+    <h2 class="vision__h">
+      <span class="vline">Most people are taught</span>
+      <span class="vline vline--accent">how to <em>buy.</em></span>
+      <span class="vline">Very few are taught</span>
+      <span class="vline vline--accent">how to <em>think</em> before buying.</span>
+    </h2>
+    <p class="vision__sub">EQTY was built for that missing phase —<br>the layer between not knowing and investing well.</p>
+  </div>
+</section>
+
+<!-- =================== FINAL CTA =================== -->
+<section class="sec sec--cta" id="cta" data-bg="#FFD500" data-fg="#111317" data-label="09 · Waitlist">
+  <div class="cta__inner">
+    <div class="sec__num cta__num">09</div>
+    <h2 class="cta__h">Ready to <em>start</em> learning?</h2>
+    <p class="cta__sub">EQTY launches soon. Early-access members get the first wave of lessons and a personal onboarding.</p>
+
+    <form class="cta__form" onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.classList.add('done');">
+      <input type="email" placeholder="you@email.com" required />
+      <button type="submit">Join the waitlist →</button>
+      <span class="cta__done">Thanks — we'll be in touch.</span>
+    </form>
+
+    <div class="cta__alt"><a href="#cta">Get early access</a></div>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__l">
+      <svg viewBox="0 0 1089.79 852.52" class="foot__mark"><polygon fill="#111317" points="1072.77 543.97 806.46 810.4 92 810.54 90.73 810.54 22.42 542.97 214.8 218.69 908.13 41.98 715.91 365.93 61.44 543.21 65.72 561.54 123.52 777.72 357.3 543.86 1072.77 543.97"/></svg>
+      <span>EQTY · 2026 — Preparation, not speculation.</span>
+    </div>
+    <div class="foot__r">
+      <a href="#hero">Home</a>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#brand">Brand</a>
+      <a href="#cta">Waitlist</a>
+    </div>
+  </footer>
+</section>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="app.js"></script>
+<script src="hero-fx.js"></script>
+</body>
+</html>
