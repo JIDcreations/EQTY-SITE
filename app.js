@@ -42,8 +42,23 @@
   const learnSlot = document.querySelector('.learn__phone-slot');
   const learnPhone = phoneEl.cloneNode(true);
   learnPhone.id = 'phoneLearn';
-  // reset cloned phone to the learning flow's default screen
-  learnPhone.querySelectorAll('.screen').forEach(s => s.classList.toggle('is-on', s.dataset.screen === 'lessons'));
+  const learningImageScreens = [
+    { name: 'onb', src: 'assets/Frames/Section-3/1-Onboarding.png', alt: 'Onboarding screen preview' },
+    { name: 'lessons', src: 'assets/Frames/Section-3/2-Lesson_overview.png', alt: 'Lesson overview screen preview' },
+    { name: 'swipe', src: 'assets/Frames/Section-3/3-Visualisatie.png', alt: 'Visualisation screen preview' },
+    { name: 'glossary', src: 'assets/Frames/Section-3/4-Glossary.png', alt: 'Glossary screen preview' },
+    { name: 'reflect', src: 'assets/Frames/Section-3/5-Reflectie.png', alt: 'Reflection screen preview' },
+    { name: 'done', src: 'assets/Frames/Section-3/6-succes.png', alt: 'Success screen preview' },
+  ];
+  const learnScreenHost = learnPhone.querySelector('.phone__screen');
+  if (learnScreenHost) {
+    learnScreenHost.innerHTML = learningImageScreens.map(({ name, src, alt }, index) => `
+      <div class="screen screen--image${index === 0 ? ' is-on' : ''}" data-screen="${name}" aria-label="${alt}">
+        <img class="screen__img" src="${src}" alt="${alt}">
+      </div>
+    `).join('');
+  }
+  learnPhone.classList.add('phone--image-mode');
   learnSlot.appendChild(learnPhone);
 
   /* ---------- 1. Nav background on scroll ---------- */
@@ -295,7 +310,7 @@
     scrollTrigger: { trigger: '.sec--learning', start: 'top 68%' }
   });
   gsap.from('.lstep', {
-    opacity: 0, x: -24, duration: 0.95, stagger: .08,
+    opacity: 0, y: 18, duration: 0.9, stagger: .06,
     scrollTrigger: { trigger: '.learn__steps', start: 'top 80%' }
   });
 
