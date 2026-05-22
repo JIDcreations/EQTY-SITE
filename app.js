@@ -452,14 +452,13 @@
     const activeTimeline = screenSwitchTimelines.get(phone);
     if (activeTimeline) {
       activeTimeline.kill();
+      screenSwitchTimelines.delete(phone);
     }
 
     screens.forEach(screen => {
       gsap.killTweensOf(screen);
-      if (screen !== currentScreen && screen !== nextScreen) {
-        screen.classList.remove('is-on');
-        gsap.set(screen, { autoAlpha: 0, scale: 0.965, y: 0, clearProps: 'zIndex' });
-      }
+      screen.classList.remove('is-on');
+      gsap.set(screen, { autoAlpha: 0, scale: 0.965, y: 0, clearProps: 'zIndex' });
     });
 
     if (currentScreen) {
@@ -485,6 +484,7 @@
             clearProps: 'zIndex'
           });
         });
+        screenSwitchTimelines.delete(phone);
       }
     });
 
