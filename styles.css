@@ -61,6 +61,14 @@ em { font-style: normal; color: var(--accent); }
   display: inline-block;
 }
 .philo__num, .cta__num { color: #111317; }
+.sec--philo .sec__num,
+.sec--philo .sec__kicker,
+.sec--brand .sec__kicker {
+  color: rgba(17,19,23,.5);
+}
+.sec--philo .sec__num {
+  color: #111317;
+}
 
 .sec__kicker {
   font-family: var(--sans);
@@ -257,7 +265,12 @@ em { font-style: normal; color: var(--accent); }
   margin-top: 16px;
   text-wrap: balance;
 }
-.hero__line { display: block; overflow: hidden; }
+.hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
 .hero__line > span { display: inline-block; transform: translateY(110%); }
 .hero__sub {
   font-family: var(--sans);
@@ -336,11 +349,16 @@ em { font-style: normal; color: var(--accent); }
   font-family: var(--serif);
   font-weight: 700;
   font-size: var(--t-display);
-  line-height: var(--t-display-lh);
+  line-height: 1.02;
   letter-spacing: var(--t-display-ls);
   margin-top: 6px;
 }
-.prob__h .line { display: block; overflow: hidden; }
+.prob__h .line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
 .prob__h .line > * { display: inline-block; }
 .prob__list {
   margin-top: clamp(60px, 12vh, 160px);

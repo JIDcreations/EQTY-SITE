@@ -74,9 +74,19 @@
   const sections = gsap.utils.toArray('.sec');
   const rail = document.getElementById('railDot');
   const railLabel = document.getElementById('railLabel');
+  const secondaryTextByFg = {
+    '#111317': 'rgba(17, 19, 23, 0.55)',
+    '#F2F4F6': 'rgba(242, 244, 246, 0.55)'
+  };
+  const ruleByFg = {
+    '#111317': 'rgba(17, 19, 23, 0.12)',
+    '#F2F4F6': 'rgba(242, 244, 246, 0.12)'
+  };
 
   const applyWorld = (sec, idx) => {
     const bg = sec.dataset.bg, fg = sec.dataset.fg, label = sec.dataset.label;
+    const fgDim = sec.dataset.fgDim || secondaryTextByFg[fg] || secondaryTextByFg['#F2F4F6'];
+    const rule = sec.dataset.rule || ruleByFg[fg] || ruleByFg['#F2F4F6'];
     gsap.to(document.body, {
       backgroundColor: bg, color: fg,
       duration: 1.05, ease: 'power2.out',
@@ -84,6 +94,8 @@
     });
     document.documentElement.style.setProperty('--bg', bg);
     document.documentElement.style.setProperty('--fg', fg);
+    document.documentElement.style.setProperty('--fg-dim', fgDim);
+    document.documentElement.style.setProperty('--rule', rule);
     railLabel.textContent = label || '';
     gsap.to(rail, { top: `calc(50% - 110px + ${(idx / (sections.length - 1)) * 220}px)`, duration: .85, ease: 'power2.out', overwrite: 'auto' });
   };
