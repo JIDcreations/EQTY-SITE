@@ -332,7 +332,7 @@
   /* ---------- 7. AI section ---------- */
   softSectionEnter('.ai__inner', '.sec--ai');
   gsap.from('.ai__h', { opacity: 0, y: 36, duration: 1.1, scrollTrigger: { trigger: '.ai__h', start: 'top 82%' } });
-  gsap.from('.ai__card', { opacity: 0, y: 44, duration: 1, stagger: .1, scrollTrigger: { trigger: '.ai__grid', start: 'top 84%' } });
+  gsap.from('.ai__card', { opacity: 0, y: 28, duration: 0.9, scrollTrigger: { trigger: '.ai__grid', start: 'top 84%' } });
   gsap.from('.ai__foot', { opacity: 0, y: 26, duration: 1.05, scrollTrigger: { trigger: '.ai__foot', start: 'top 88%' } });
 
   /* ---------- 8. Philosophy section ---------- */

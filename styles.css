@@ -887,9 +887,10 @@ em { font-style: normal; color: var(--accent); }
   border: 1px solid var(--rule);
   border-radius: 18px;
   padding: 24px;
-  display: grid; gap: 12px;
+  display: grid;
+  gap: 14px;
   align-content: start;
-  min-height: 220px;
+  min-height: 244px;
   transition: background .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
 }
 .ai__card:hover { transform: translateY(-3px); border-color: rgba(255,213,0,.5); }
@@ -900,8 +901,17 @@ em { font-style: normal; color: var(--accent); }
   display: grid; place-items: center;
   font-size: var(--t-body); color: var(--accent);
 }
-.ai__card b { font-family: var(--serif); font-weight: 700; font-size: var(--t-bodyL); }
-.ai__card p { font-size: var(--t-eyebrow); color: var(--fg-dim); line-height: 1.5; }
+.ai__card b {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: var(--t-bodyL);
+  line-height: 1.2;
+}
+.ai__card p {
+  font-size: var(--t-body);
+  color: var(--fg-dim);
+  line-height: 1.5;
+}
 .ai__foot {
   margin-top: 60px;
   font-family: var(--serif); font-weight: 700;
