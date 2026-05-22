@@ -11,6 +11,7 @@
   ScrollTrigger.config({
     ignoreMobileResize: true
   });
+  const screenSwitchTimelines = new WeakMap();
 
   const softSectionEnter = (target, trigger = target, options = {}) => {
     const {
@@ -432,6 +433,11 @@
 
     phone.classList.toggle('phone--image-mode', nextScreen.classList.contains('screen--image'));
 
+    const activeTimeline = screenSwitchTimelines.get(phone);
+    if (activeTimeline) {
+      activeTimeline.kill();
+    }
+
     screens.forEach(screen => {
       gsap.killTweensOf(screen);
       if (screen !== currentScreen && screen !== nextScreen) {
@@ -483,6 +489,7 @@
     }, currentScreen ? 0.08 : 0);
 
     if (phoneShell) {
+      gsap.killTweensOf(phoneShell);
       switchTl.to(phoneShell, {
         rotateY: '+=4',
         duration: 0.22,
@@ -491,6 +498,8 @@
         ease: 'power1.inOut'
       }, 0);
     }
+
+    screenSwitchTimelines.set(phone, switchTl);
   }
 
   function activateLearningStep(step) {

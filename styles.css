@@ -559,7 +559,6 @@ em { font-style: normal; color: var(--accent); }
   gap: 10px;
   opacity: 0;
   transform: scale(.96);
-  transition: opacity .55s var(--ease), transform .55s var(--ease);
   color: #F2F4F6;
   font-family: var(--sans);
   will-change: transform, opacity;
