@@ -767,7 +767,7 @@ em { font-style: normal; color: var(--accent); }
    LEARNING section
    ========================================================= */
 .pin-wrap--learning {
-  height: 280vh;
+  height: 360vh;
 }
 .learn__layout {
   position: sticky; top: 0; height: 100vh;

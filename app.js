@@ -290,6 +290,8 @@
     opacity: 0.26
   });
   const steps = gsap.utils.toArray('.lstep');
+  const learningTrigger = '.sec--learning .pin-wrap--learning';
+  const learningScrollSpan = 0.82;
   steps.forEach(step => {
     step.setAttribute('aria-pressed', step.classList.contains('on') ? 'true' : 'false');
     step.addEventListener('click', () => activateLearningStep(step));
@@ -300,14 +302,16 @@
       }
     });
   });
-  steps.forEach((step, i) => {
-    ScrollTrigger.create({
-      trigger: '.sec--learning .pin-wrap--learning',
-      start: `top+=${(i / steps.length) * 100}% top`,
-      end:   `top+=${((i + 1) / steps.length) * 100}% top`,
-      onEnter: () => activateLearningStep(step),
-      onEnterBack: () => activateLearningStep(step)
-    });
+  ScrollTrigger.create({
+    trigger: learningTrigger,
+    start: 'top top',
+    end: 'bottom bottom',
+    onUpdate: self => {
+      const progress = Math.min(self.progress / learningScrollSpan, 0.999999);
+      const nextIndex = Math.floor(progress * steps.length);
+      activateLearningStep(steps[nextIndex]);
+    },
+    onLeaveBack: () => activateLearningStep(steps[0], { force: true })
   });
 
   // Phone learn intro
@@ -502,7 +506,10 @@
     screenSwitchTimelines.set(phone, switchTl);
   }
 
-  function activateLearningStep(step) {
+  function activateLearningStep(step, options = {}) {
+    const { force = false } = options;
+    if (!step) return;
+    if (!force && step.classList.contains('on')) return;
     steps.forEach(s => s.classList.remove('on'));
     step.classList.add('on');
     steps.forEach(s => s.setAttribute('aria-pressed', s === step ? 'true' : 'false'));
