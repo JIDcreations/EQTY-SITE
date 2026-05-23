@@ -146,6 +146,11 @@
 .hv2-em {
   position: relative;
   text-shadow: 0 0 22px rgba(255,213,0,.35);
+  animation: emBreath 4s ease-in-out infinite;
+}
+@keyframes emBreath {
+  0%, 100% { text-shadow: 0 0 18px rgba(255,213,0,.3); }
+  50%       { text-shadow: 0 0 36px rgba(255,213,0,.6), 0 0 60px rgba(255,213,0,.2); }
 }
 .hv2-em::after {
   display: none;
