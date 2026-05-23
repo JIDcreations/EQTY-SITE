@@ -789,18 +789,16 @@ em { font-style: normal; color: var(--accent); }
 }
 .learn__layout {
   position: sticky; top: 0; height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: clamp(20px, 4vw, 72px);
+  display: flex;
   align-items: center;
+  gap: clamp(20px, 4vw, 72px);
   padding: 0 var(--pad);
 }
 .learn__copy {
+  flex-shrink: 0;
   display: grid;
   gap: 10px;
-  width: min(100%, 760px);
-  max-width: 760px;
-  justify-self: end;
+  width: min(460px, 35vw);
 }
 .learn__h {
   font-family: var(--serif); font-weight: 700;
@@ -856,7 +854,9 @@ em { font-style: normal; color: var(--accent); }
 .lstep.on p { max-height: 60px; }
 
 .learn__phone-slot {
-  grid-column: 2;
+  flex: 1;
+  display: flex;
+  justify-content: center;
   /* invisible, the global phone is positioned over this column via JS */
 }
 
