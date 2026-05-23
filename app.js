@@ -82,6 +82,13 @@
     '#111317': 'rgba(17, 19, 23, 0.12)',
     '#F2F4F6': 'rgba(242, 244, 246, 0.12)'
   };
+  const setRailLabel = (label = '') => {
+    const [num = '', text = ''] = label.split('·').map(part => part.trim());
+    railLabel.innerHTML = `
+      <span class="rail__label-num">${num}</span>
+      <span class="rail__label-text">${text}</span>
+    `;
+  };
 
   const applyWorld = (sec, idx) => {
     const bg = sec.dataset.bg, fg = sec.dataset.fg, label = sec.dataset.label;
@@ -96,7 +103,7 @@
     document.documentElement.style.setProperty('--fg', fg);
     document.documentElement.style.setProperty('--fg-dim', fgDim);
     document.documentElement.style.setProperty('--rule', rule);
-    railLabel.textContent = label || '';
+    setRailLabel(label);
     gsap.to(rail, { top: `calc(50% - 110px + ${(idx / (sections.length - 1)) * 220}px)`, duration: .85, ease: 'power2.out', overwrite: 'auto' });
   };
 

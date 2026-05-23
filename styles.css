@@ -197,20 +197,41 @@ em { font-style: normal; color: var(--accent); }
   transition: top .5s var(--ease), background .5s var(--ease);
   animation: dotPulse 3s ease-in-out infinite;
 }
+.rail__bullet {
+  position: absolute;
+  right: 18px;
+  top: calc(50% + 12px);
+  font-size: 28px;
+  line-height: 1;
+  color: var(--fg-dim);
+}
 @keyframes dotPulse {
   0%, 100% { box-shadow: 0 0 10px var(--accent); }
   50% { box-shadow: 0 0 22px var(--accent), 0 0 42px rgba(255,213,0,.25); }
 }
 .rail__label {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
   font-size: var(--t-eyebrow);
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: var(--fg-dim);
   position: absolute;
   right: 28px;
   top: calc(50% + 120px);
+}
+.rail__label-text,
+.rail__label-num {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-transform: uppercase;
+  line-height: 1;
+}
+.rail__label-text {
+  letter-spacing: .3em;
+  color: var(--fg-dim);
+}
+.rail__label-num {
+  letter-spacing: .18em;
+  color: var(--fg);
 }
 @media (max-width: 900px) { .rail { display: none; } }
 
@@ -959,8 +980,9 @@ em { font-style: normal; color: var(--accent); }
   margin-top: 80px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  max-width: 1120px;
+  gap: 24px;
+  width: 100%;
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1132,6 +1154,7 @@ em { font-style: normal; color: var(--accent); }
   gap: 20px;
   background: rgba(27,36,50,.4);
   border: 1px solid var(--rule);
+  overflow: hidden;
 }
 .show__card--light { background: #F8FAFD; color: var(--on-accent); border-color: rgba(17,19,23,.08); }
 .show__cap { display: flex; justify-content: space-between; align-items: baseline; font-size: var(--t-eyebrow); letter-spacing: .2em; text-transform: uppercase; color: var(--fg-dim); }
@@ -1149,6 +1172,21 @@ em { font-style: normal; color: var(--accent); }
   justify-self: center;
 }
 .show__phone--light { background: #DCE1E7; border-color: var(--fg-secondary); }
+.show__media {
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.show__frame {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
 
 .mini-screen {
   width: 100%; height: 100%;
