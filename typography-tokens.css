@@ -16,7 +16,7 @@
   --font-heading: "Filson Pro", ui-sans-serif, system-ui, sans-serif;
   --font-body:    "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  --serif: var(--font-body);
+  --serif: var(--font-heading);
   --sans:  var(--font-body);
   --mono:  ui-monospace, "SF Mono", Menlo, monospace;
 

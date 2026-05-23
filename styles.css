@@ -1267,6 +1267,46 @@ em { font-style: normal; color: var(--accent); }
 }
 .motion-chip--on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 
+/* Progress + completion card */
+.motion-progress { display: grid; gap: 10px; }
+.motion-progress__label { display: flex; justify-content: space-between; font-size: var(--t-eyebrow); color: var(--fg-dim); }
+.motion-progress__label b { color: var(--accent); font-weight: 700; font-family: var(--serif); }
+.motion-progress__bar { height: 4px; background: rgba(255,255,255,.1); border-radius: 99px; overflow: hidden; }
+.motion-progress__fill {
+  height: 100%; width: 80%; background: var(--accent); border-radius: 99px;
+  animation: progressFill 3.5s cubic-bezier(.6,.05,.2,1) infinite;
+}
+@keyframes progressFill {
+  0% { width: 0%; opacity: 0; }
+  15% { opacity: 1; }
+  65%, 100% { width: 80%; }
+}
+.motion-steps { display: flex; gap: 8px; }
+.motion-step {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,.12); border: 1.5px solid rgba(255,255,255,.18);
+}
+.motion-step--done { background: var(--accent); border-color: var(--accent); }
+.motion-complete {
+  background: rgba(27,36,50,.6); border: 1px solid var(--rule);
+  border-radius: 16px; padding: 16px;
+  display: flex; gap: 14px; align-items: center;
+  animation: completePop 3.5s cubic-bezier(.6,.05,.2,1) infinite;
+}
+@keyframes completePop {
+  0%, 55% { opacity: 0; transform: translateY(6px); }
+  70%, 100% { opacity: 1; transform: translateY(0); }
+}
+.motion-complete__icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--accent); color: var(--on-accent);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px; flex-shrink: 0;
+}
+.motion-complete__text { display: grid; gap: 2px; }
+.motion-complete__text b { font-family: var(--serif); font-weight: 700; font-size: var(--t-body); }
+.motion-complete__text span { font-size: var(--t-eyebrow); color: var(--fg-dim); }
+
 /* Design system card */
 .show__ds { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .ds-swatch {
