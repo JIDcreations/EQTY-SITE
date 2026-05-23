@@ -382,18 +382,18 @@
       end: 'top 40%'
     });
     const totalScroll = () => rail2.scrollWidth - window.innerWidth + 80;
-    gsap.to(rail2, {
-      x: () => -totalScroll(),
-      ease: 'none',
+    gsap.timeline({
       scrollTrigger: {
         trigger: '.sec--showcase',
         start: 'top top',
-        end: () => `+=${totalScroll() + window.innerHeight * 0.35}`,
+        end: () => `+=${totalScroll() + window.innerHeight * 1.5}`,
         scrub: 1.15,
         pin: '.show__track',
         invalidateOnRefresh: true
       }
-    });
+    })
+    .to(rail2, { x: () => -totalScroll(), ease: 'none', duration: 1 })
+    .to({}, { duration: 1.5 });
     gsap.from('.show__card', {
       opacity: 0,
       y: 42,

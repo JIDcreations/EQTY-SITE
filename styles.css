@@ -1267,45 +1267,57 @@ em { font-style: normal; color: var(--accent); }
 }
 .motion-chip--on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 
-/* Progress + completion card */
-.motion-progress { display: grid; gap: 10px; }
-.motion-progress__label { display: flex; justify-content: space-between; font-size: var(--t-eyebrow); color: var(--fg-dim); }
-.motion-progress__label b { color: var(--accent); font-weight: 700; font-family: var(--serif); }
-.motion-progress__bar { height: 4px; background: rgba(255,255,255,.1); border-radius: 99px; overflow: hidden; }
-.motion-progress__fill {
-  height: 100%; width: 80%; background: var(--accent); border-radius: 99px;
-  animation: progressFill 3.5s cubic-bezier(.6,.05,.2,1) infinite;
+/* Wrong answer micro-interaction card */
+.motion-rank-label {
+  font-family: var(--serif); font-weight: 700;
+  font-size: var(--t-bodyL); line-height: 1.2;
+  margin-bottom: 2px;
 }
-@keyframes progressFill {
-  0% { width: 0%; opacity: 0; }
-  15% { opacity: 1; }
-  65%, 100% { width: 80%; }
+.motion-rank-item {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(27,36,50,.8); border: 1.5px solid var(--rule);
+  border-radius: 10px; padding: 10px 12px;
 }
-.motion-steps { display: flex; gap: 8px; }
-.motion-step {
-  width: 10px; height: 10px; border-radius: 50%;
-  background: rgba(255,255,255,.12); border: 1.5px solid rgba(255,255,255,.18);
-}
-.motion-step--done { background: var(--accent); border-color: var(--accent); }
-.motion-complete {
-  background: rgba(27,36,50,.6); border: 1px solid var(--rule);
-  border-radius: 16px; padding: 16px;
-  display: flex; gap: 14px; align-items: center;
-  animation: completePop 3.5s cubic-bezier(.6,.05,.2,1) infinite;
-}
-@keyframes completePop {
-  0%, 55% { opacity: 0; transform: translateY(6px); }
-  70%, 100% { opacity: 1; transform: translateY(0); }
-}
-.motion-complete__icon {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: var(--accent); color: var(--on-accent);
+.motion-rank-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(255,255,255,.08); border: 1px solid var(--rule);
   display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 16px; flex-shrink: 0;
+  font-size: 11px; font-weight: 600; flex-shrink: 0;
 }
-.motion-complete__text { display: grid; gap: 2px; }
-.motion-complete__text b { font-family: var(--serif); font-weight: 700; font-size: var(--t-body); }
-.motion-complete__text span { font-size: var(--t-eyebrow); color: var(--fg-dim); }
+.motion-rank-text { flex: 1; font-size: 13px; font-weight: 500; }
+.motion-rank-del {
+  font-size: 11px; color: var(--fg-dim);
+  width: 18px; height: 18px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: rgba(255,255,255,.06);
+}
+.motion-rank-del--wrong {
+  background: #E8600A; color: #fff;
+  animation: delWrong 5s ease-in-out infinite;
+}
+.motion-rank-item--wrong { animation: wrongItem 5s ease-in-out infinite; }
+.motion-hint {
+  font-size: var(--t-eyebrow); color: #E8600A;
+  opacity: 0;
+  animation: hintAppear 5s ease-in-out infinite;
+}
+@keyframes wrongItem {
+  0%, 18%  { background: rgba(27,36,50,.8); border-color: var(--rule); }
+  22%      { background: rgba(255,213,0,.05); border-color: rgba(255,213,0,.4); transform: scale(.98); }
+  26%, 70% { background: rgba(255,213,0,.05); border-color: var(--accent); transform: scale(1); }
+  84%, 100% { background: rgba(27,36,50,.8); border-color: var(--rule); }
+}
+@keyframes delWrong {
+  0%, 22%  { background: rgba(255,255,255,.06); color: var(--fg-dim); transform: scale(1); }
+  26%      { transform: scale(1.2); }
+  30%, 70% { background: #E8600A; color: #fff; transform: scale(1); }
+  84%, 100% { background: rgba(255,255,255,.06); color: var(--fg-dim); }
+}
+@keyframes hintAppear {
+  0%, 24%  { opacity: 0; transform: translateY(4px); }
+  32%, 70% { opacity: 1; transform: translateY(0); }
+  84%, 100% { opacity: 0; transform: translateY(4px); }
+}
 
 /* Design system card */
 .show__ds { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -1318,8 +1330,8 @@ em { font-style: normal; color: var(--accent); }
   display: grid;
   align-content: end;
 }
-.ds-swatch span { font-size: var(--t-eyebrow); font-weight: 500; }
-.ds-swatch i { font-style: normal; font-size: var(--t-eyebrow); opacity: .7; }
+.ds-swatch span { font-size: var(--t-eyebrow); letter-spacing: var(--t-eyebrow-ls); text-transform: uppercase; font-weight: 500; }
+.ds-swatch i { font-style: normal; font-size: var(--t-eyebrow); letter-spacing: var(--t-eyebrow-ls); opacity: .7; }
 .ds-swatch--y { color: var(--on-accent); }
 .ds-swatch--y2 { color: var(--on-accent); }
 
