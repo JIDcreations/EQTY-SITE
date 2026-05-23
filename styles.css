@@ -869,7 +869,7 @@ em { font-style: normal; color: var(--accent); }
   width: 100%;
   padding: 16px 18px;
   border: 1px solid var(--rule);
-  border-radius: 14px;
+  border-radius: 16px;
   background: transparent;
   cursor: pointer;
   transition: background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);
