@@ -93,18 +93,6 @@ em { font-style: normal; color: var(--accent); }
   text-transform: uppercase;
   color: var(--fg-dim);
   margin: 12px 0 36px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.sec__kicker::before {
-  content: '';
-  display: block;
-  width: 24px;
-  height: 1px;
-  background: var(--accent);
-  opacity: .7;
-  flex-shrink: 0;
 }
 
 /* =========================================================
