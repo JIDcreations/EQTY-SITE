@@ -197,14 +197,6 @@ em { font-style: normal; color: var(--accent); }
   transition: top .5s var(--ease), background .5s var(--ease);
   animation: dotPulse 3s ease-in-out infinite;
 }
-.rail__bullet {
-  position: absolute;
-  right: 18px;
-  top: calc(50% + 12px);
-  font-size: 28px;
-  line-height: 1;
-  color: var(--fg-dim);
-}
 @keyframes dotPulse {
   0%, 100% { box-shadow: 0 0 10px var(--accent); }
   50% { box-shadow: 0 0 22px var(--accent), 0 0 42px rgba(255,213,0,.25); }
