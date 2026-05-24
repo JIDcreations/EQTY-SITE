@@ -13,6 +13,8 @@
   });
   const screenSwitchTimelines = new WeakMap();
 
+  initPremiumScroll();
+
   const softSectionEnter = (target, trigger = target, options = {}) => {
     const {
       y = 64,
@@ -556,4 +558,124 @@
     document.fonts.ready.then(() => ScrollTrigger.refresh());
   }
   window.addEventListener('load', () => ScrollTrigger.refresh());
+
+  function initPremiumScroll() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (prefersReducedMotion || !supportsFinePointer) return;
+
+    let currentY = window.scrollY;
+    let targetY = currentY;
+    let rafId = 0;
+    let syncingToScroll = false;
+
+    const getMaxScroll = () => Math.max(
+      0,
+      document.documentElement.scrollHeight - window.innerHeight
+    );
+
+    const clampTarget = value => gsap.utils.clamp(0, getMaxScroll(), value);
+
+    const hasScrollableParent = (node, deltaY) => {
+      let current = node instanceof Element ? node : null;
+
+      while (current && current !== document.body) {
+        const style = window.getComputedStyle(current);
+        const canScroll = /(auto|scroll|overlay)/.test(style.overflowY);
+        if (canScroll && current.scrollHeight > current.clientHeight + 2) {
+          const { scrollTop, scrollHeight, clientHeight } = current;
+          const scrollingDown = deltaY > 0;
+          const scrollingUp = deltaY < 0;
+
+          if ((scrollingDown && scrollTop + clientHeight < scrollHeight - 1) ||
+              (scrollingUp && scrollTop > 1)) {
+            return true;
+          }
+        }
+        current = current.parentElement;
+      }
+
+      return false;
+    };
+
+    const startTick = () => {
+      if (!rafId) rafId = window.requestAnimationFrame(tick);
+    };
+
+    const tick = () => {
+      const delta = targetY - currentY;
+      const distance = Math.abs(delta);
+      const ease = distance > 180 ? 0.13 : 0.18;
+
+      currentY += delta * ease;
+      if (distance < 0.35) currentY = targetY;
+
+      syncingToScroll = true;
+      window.scrollTo(0, currentY);
+      ScrollTrigger.update();
+      syncingToScroll = false;
+
+      if (currentY !== targetY) {
+        rafId = window.requestAnimationFrame(tick);
+        return;
+      }
+
+      rafId = 0;
+    };
+
+    const queueScrollTo = value => {
+      targetY = clampTarget(value);
+      currentY = window.scrollY;
+      startTick();
+    };
+
+    window.addEventListener('wheel', event => {
+      if (
+        event.defaultPrevented ||
+        event.ctrlKey ||
+        event.metaKey ||
+        Math.abs(event.deltaX) > Math.abs(event.deltaY) ||
+        hasScrollableParent(event.target, event.deltaY)
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const deltaScale = event.deltaMode === 1
+        ? 18
+        : event.deltaMode === 2
+          ? window.innerHeight
+          : 1;
+
+      queueScrollTo(targetY + (event.deltaY * deltaScale));
+    }, { passive: false });
+
+    window.addEventListener('scroll', () => {
+      if (syncingToScroll || rafId) return;
+      currentY = window.scrollY;
+      targetY = currentY;
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      targetY = clampTarget(targetY);
+      currentY = clampTarget(window.scrollY);
+    }, { passive: true });
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', event => {
+        const href = link.getAttribute('href');
+        if (!href || href === '#') return;
+
+        const section = document.querySelector(href);
+        if (!section) return;
+
+        event.preventDefault();
+        const navOffset = 20;
+        const top = section.getBoundingClientRect().top + window.scrollY - navOffset;
+        queueScrollTo(top);
+        window.history.pushState(null, '', href);
+      });
+    });
+  }
 })();

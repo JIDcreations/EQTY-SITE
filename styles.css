@@ -26,6 +26,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { background: var(--bg); color: var(--fg); }
+html { scroll-behavior: auto; }
 body {
   font-family: var(--sans);
   font-weight: 300;
@@ -33,6 +34,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   transition: background-color .9s var(--ease), color .9s var(--ease);
+}
+
+.hv2-content,
+.hv2-scene,
+.hv2-world,
+.hv2-artwork,
+.phone__shell,
+.screen,
+.show__rail {
+  backface-visibility: hidden;
+}
+
+.hv2-content,
+.hv2-scene,
+.phone__shell,
+.screen,
+.show__rail {
+  transform: translateZ(0);
+  will-change: transform, opacity;
 }
 
 img, svg, video { display: block; max-width: 100%; }
