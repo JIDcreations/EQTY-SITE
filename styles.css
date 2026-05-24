@@ -1475,6 +1475,12 @@ em { font-style: normal; color: var(--accent); }
   overflow: hidden;
 }
 .cta__inner { max-width: 980px; margin: 0 auto; text-align: center; }
+.cta__logo {
+  width: min(220px, 44vw);
+  margin: 24px auto 0;
+  color: #fff;
+}
+.cta__logo svg { display: block; width: 100%; height: auto; }
 .cta__h {
   font-family: var(--serif); font-weight: 700;
   font-size: var(--t-h2);
@@ -1542,6 +1548,10 @@ em { font-style: normal; color: var(--accent); }
   gap: 16px;
 }
 .foot__l { display: flex; align-items: center; gap: 12px; }
+.foot__l span {
+  font-size: var(--t-eyebrow);
+  letter-spacing: var(--t-eyebrow-ls);
+}
 .foot__mark { width: 24px; height: 18px; }
 .foot__r { display: flex; gap: 22px; }
 .foot__r a:hover { color: var(--on-accent); }
