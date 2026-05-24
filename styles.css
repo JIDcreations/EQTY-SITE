@@ -1826,8 +1826,10 @@ em { font-style: normal; color: var(--accent); }
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    padding: 6px 6px 12px;
+    padding: 6px var(--pad) 12px;
     margin-top: 28px;
+    margin-left: calc(-1 * var(--pad));
+    margin-right: calc(-1 * var(--pad));
     scrollbar-width: none;
   }
   .learn__strip::-webkit-scrollbar { display: none; }
