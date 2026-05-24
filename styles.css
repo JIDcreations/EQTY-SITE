@@ -171,7 +171,7 @@ em { font-style: normal; color: var(--accent); }
 .nav__links .nav__cta:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); box-shadow: 0 0 20px rgba(255,213,0,.25); }
 
 @media (max-width: 720px) {
-  .nav__links li:not(:last-child) { display: none; }
+  .nav__links li:nth-last-child(n + 3) { display: none; }
 }
 
 /* =========================================================
