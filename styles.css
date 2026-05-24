@@ -1795,12 +1795,42 @@ em { font-style: normal; color: var(--accent); }
   }
   .learn__copy {
     width: 100%;
-    order: 2;
   }
   .learn__phone-slot {
-    width: 100%;
-    justify-content: center;
-    order: 1; /* phone appears above the steps so tapping a step updates the screen above */
+    display: none; /* replaced by the .learn__strip created by JS */
+  }
+}
+
+/* Mobile frame strip — created by JS on small screens */
+.learn__strip {
+  display: none;
+}
+@media (max-width: 1023px) {
+  .learn__strip {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    margin-top: 28px;
+    scrollbar-width: none;
+  }
+  .learn__strip::-webkit-scrollbar { display: none; }
+  .learn__strip-img {
+    height: 220px;
+    width: auto;
+    border-radius: 14px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    opacity: 0.4;
+    outline: 2px solid transparent;
+    outline-offset: 3px;
+    transition: opacity .3s var(--ease), outline-color .3s var(--ease);
+  }
+  .learn__strip-img.is-active {
+    opacity: 1;
+    outline-color: var(--accent);
   }
 }
 

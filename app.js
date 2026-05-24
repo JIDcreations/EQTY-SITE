@@ -12,6 +12,7 @@
     ignoreMobileResize: true
   });
   const screenSwitchTimelines = new WeakMap();
+  const isWideScreen = window.matchMedia('(min-width: 1024px)').matches;
 
   initPremiumScroll();
   initCustomCursor();
@@ -333,6 +334,22 @@
       }
     });
   });
+
+  // Mobile: build a horizontal frame strip instead of the interactive phone
+  if (!isWideScreen) {
+    const strip = document.createElement('div');
+    strip.className = 'learn__strip';
+    learningImageScreens.forEach(({ src, alt, name }, i) => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = alt;
+      img.className = 'learn__strip-img' + (i === 0 ? ' is-active' : '');
+      img.dataset.screen = name;
+      strip.appendChild(img);
+    });
+    const learnCopyEl = document.querySelector('.learn__copy');
+    if (learnCopyEl) learnCopyEl.insertBefore(strip, learnCopyEl.querySelector('.learn__steps'));
+  }
   if (isWideScreen) {
     ScrollTrigger.create({
       trigger: learningTrigger,
@@ -396,7 +413,6 @@
 
   /* ---------- 9. Showcase: horizontal scroll (desktop only) ---------- */
   const rail2 = document.getElementById('showRail');
-  const isWideScreen = window.matchMedia('(min-width: 1024px)').matches;
   if (rail2) {
     softSectionEnter('.show__head', '.sec--showcase', {
       y: 56,
@@ -560,6 +576,15 @@
     step.classList.add('on');
     steps.forEach(s => s.setAttribute('aria-pressed', s === step ? 'true' : 'false'));
     switchScreen('#phoneLearn', step.dataset.target);
+    // Mobile: update the frame strip highlight
+    if (!isWideScreen) {
+      const target = step.dataset.target;
+      document.querySelectorAll('.learn__strip-img').forEach(img => {
+        const active = img.dataset.screen === target;
+        img.classList.toggle('is-active', active);
+        if (active) img.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      });
+    }
   }
 
   // Refresh after fonts load (Filson Pro / Inter) to remeasure pin offsets
