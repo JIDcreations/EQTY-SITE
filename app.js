@@ -167,10 +167,12 @@
   });
   gsap.from('.prob__shift', {
     opacity: 0, y: 30,
+    immediateRender: false,
     scrollTrigger: { trigger: '.prob__shift', start: 'top 80%' }
   });
   gsap.from('.shift__rule', {
     scaleX: 0, transformOrigin: 'left center', duration: 1.2, ease: 'power3.out',
+    immediateRender: false,
     scrollTrigger: { trigger: '.prob__shift', start: 'top 75%' }
   });
 
@@ -267,14 +269,17 @@
   gsap.from('.what__h', {
     opacity: 0, y: 40,
     duration: 1.15,
+    immediateRender: false,
     scrollTrigger: { trigger: '.sec--what', start: 'top 72%' }
   });
   gsap.from('.what__stats .stat', {
     opacity: 0, y: 28, duration: 1.05, stagger: .1,
+    immediateRender: false,
     scrollTrigger: { trigger: '.what__stats', start: 'top 78%' }
   });
   gsap.from('.not__list li', {
     opacity: 0, x: 30, duration: 0.95, stagger: .1,
+    immediateRender: false,
     scrollTrigger: { trigger: '.not__list', start: 'top 78%' }
   });
 
@@ -282,6 +287,7 @@
   gsap.from('#phone .phone__shell', {
     opacity: 0, y: 60, scale: .92, rotateY: -10,
     duration: 1.2, ease: 'power3.out',
+    immediateRender: false,
     scrollTrigger: { trigger: '.sec--what', start: 'top 70%' }
   });
   // Subtle phone Y drift while pinned
@@ -337,39 +343,46 @@
   gsap.from('#phoneLearn .phone__shell', {
     opacity: 0, y: 50, scale: .95,
     duration: 1.1, ease: 'power3.out',
+    immediateRender: false,
     scrollTrigger: { trigger: '.sec--learning', start: 'top 64%' }
   });
   gsap.from('.learn__h', {
     opacity: 0, y: 34, duration: 1.05,
+    immediateRender: false,
     scrollTrigger: { trigger: '.sec--learning', start: 'top 68%' }
   });
   gsap.from('.lstep', {
     opacity: 0, y: 18, duration: 0.9, stagger: .06,
+    immediateRender: false,
     scrollTrigger: { trigger: '.learn__steps', start: 'top 80%' }
   });
 
   /* ---------- 7. AI section ---------- */
   softSectionEnter('.ai__inner', '.sec--ai');
-  gsap.from('.ai__h', { opacity: 0, y: 36, duration: 1.1, scrollTrigger: { trigger: '.ai__h', start: 'top 82%' } });
-  gsap.from('.ai__card', { opacity: 0, y: 28, duration: 0.9, scrollTrigger: { trigger: '.ai__grid', start: 'top 84%' } });
-  gsap.from('.ai__foot', { opacity: 0, y: 26, duration: 1.05, scrollTrigger: { trigger: '.ai__foot', start: 'top 88%' } });
+  gsap.from('.ai__h', { opacity: 0, y: 36, duration: 1.1, immediateRender: false, scrollTrigger: { trigger: '.ai__h', start: 'top 82%' } });
+  gsap.from('.ai__card', { opacity: 0, y: 28, duration: 0.9, immediateRender: false, scrollTrigger: { trigger: '.ai__grid', start: 'top 84%' } });
+  gsap.from('.ai__foot', { opacity: 0, y: 26, duration: 1.05, immediateRender: false, scrollTrigger: { trigger: '.ai__foot', start: 'top 88%' } });
 
   /* ---------- 8. Philosophy section ---------- */
   softSectionEnter('.philo__inner', '.sec--philo');
   gsap.from('.philo__h', {
     opacity: 0, y: 40, duration: 1.1,
+    immediateRender: false,
     scrollTrigger: { trigger: '.philo__h', start: 'top 82%' }
   });
   gsap.from('.philo__col--neg li', {
     opacity: 0, x: -30, duration: 0.95, stagger: .09,
+    immediateRender: false,
     scrollTrigger: { trigger: '.philo__cols', start: 'top 80%' }
   });
   gsap.from('.philo__col--pos li', {
     opacity: 0, x: 30, duration: 0.95, stagger: .09,
+    immediateRender: false,
     scrollTrigger: { trigger: '.philo__cols', start: 'top 80%' }
   });
   gsap.from('.philo__quote', {
     opacity: 0, scale: .94, y: 24, duration: 1.2,
+    immediateRender: false,
     scrollTrigger: { trigger: '.philo__quote', start: 'top 84%' }
   });
 
@@ -400,18 +413,20 @@
       scale: 0.97,
       duration: 1,
       stagger: 0.08,
+      immediateRender: false,
       scrollTrigger: { trigger: '.show__track', start: 'top 78%' }
     });
     gsap.from('.show__h', {
       opacity: 0, y: 30, duration: 1.05,
+      immediateRender: false,
       scrollTrigger: { trigger: '.show__head', start: 'top 82%' }
     });
   }
 
   /* ---------- 10. Brand grid ---------- */
   softSectionEnter('.brand__inner', '.sec--brand');
-  gsap.from('.brand__h', { opacity: 0, y: 34, duration: 1.05, scrollTrigger: { trigger: '.brand__h', start: 'top 82%' } });
-  gsap.from('.brand__cell', { opacity: 0, y: 24, duration: 0.95, stagger: .07, scrollTrigger: { trigger: '.brand__grid', start: 'top 84%' } });
+  gsap.from('.brand__h', { opacity: 0, y: 34, duration: 1.05, immediateRender: false, scrollTrigger: { trigger: '.brand__h', start: 'top 82%' } });
+  gsap.from('.brand__cell', { opacity: 0, y: 24, duration: 0.95, stagger: .07, immediateRender: false, scrollTrigger: { trigger: '.brand__grid', start: 'top 84%' } });
 
   /* ---------- 11. Vision lines ---------- */
   softSectionEnter('.vision__inner', '.sec--vision');
@@ -424,6 +439,7 @@
   });
   gsap.from('.vision__sub', {
     opacity: 0, y: 24, duration: 1.05,
+    immediateRender: false,
     scrollTrigger: { trigger: '.vision__sub', start: 'top 88%' }
   });
 
@@ -433,10 +449,10 @@
     opacity: 0.36,
     end: 'top 42%'
   });
-  gsap.from('.cta__h', { opacity: 0, scale: .94, scrollTrigger: { trigger: '.cta__h', start: 'top 82%' }, duration: 1.2, ease: 'power3.out' });
-  gsap.from('.cta__sub', { opacity: 0, y: 24, duration: 1.05, scrollTrigger: { trigger: '.cta__sub', start: 'top 88%' } });
-  gsap.from('.cta__form', { opacity: 0, y: 30, duration: 1.1, scrollTrigger: { trigger: '.cta__form', start: 'top 88%' } });
-  gsap.from('.foot > *', { opacity: 0, y: 20, duration: 0.9, stagger: .1, scrollTrigger: { trigger: '.foot', start: 'top 92%' } });
+  gsap.from('.cta__h', { opacity: 0, scale: .94, immediateRender: false, scrollTrigger: { trigger: '.cta__h', start: 'top 82%' }, duration: 1.2, ease: 'power3.out' });
+  gsap.from('.cta__sub', { opacity: 0, y: 24, duration: 1.05, immediateRender: false, scrollTrigger: { trigger: '.cta__sub', start: 'top 88%' } });
+  gsap.from('.cta__form', { opacity: 0, y: 30, duration: 1.1, immediateRender: false, scrollTrigger: { trigger: '.cta__form', start: 'top 88%' } });
+  gsap.from('.foot > *', { opacity: 0, y: 20, duration: 0.9, stagger: .1, immediateRender: false, scrollTrigger: { trigger: '.foot', start: 'top 92%' } });
 
   /* ---------- Helpers ---------- */
   function switchScreen(phoneSel, name) {
