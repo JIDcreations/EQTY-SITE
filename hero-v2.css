@@ -19,6 +19,15 @@
   color: var(--fg);
 }
 .hv2 .hero__glow, .hv2 .hero__grid, .hv2 .hero__noise, .hv2 .hero__mark { display: none; }
+.hv2::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 220px;
+  background: linear-gradient(to bottom, transparent, #12161C);
+  pointer-events: none;
+  z-index: 2;
+}
 
 /* ---------- Ambient layer ---------- */
 .hv2-amb { display: none; }
