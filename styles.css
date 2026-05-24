@@ -1731,13 +1731,39 @@ em { font-style: normal; color: var(--accent); }
   .sec { padding: clamp(64px, 12vh, 140px) var(--pad); }
 }
 
-/* ---- Problem section word offsets ---- */
+/* ---- Problem section — unpin on mobile ---- */
 @media (max-width: 768px) {
+  /* Disable sticky pinning — no more scroll-gap void */
+  .pin-wrap--problem { height: auto; }
+  .prob__stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    padding: 64px var(--pad) 24px;
+  }
+
+  /* Override GSAP inline styles — show heading text immediately */
+  .prob__h .line > * { transform: none !important; }
+
+  /* Show platform word (TikTok) — hide GSAP-hidden duplicates */
+  .prob__platform-word { transform: none !important; opacity: 0 !important; }
+  .prob__platform-word:first-child { opacity: 1 !important; }
+
+  /* Show words immediately — no scroll-driven fade */
+  .prob__word {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Reduced offsets so words don't overflow narrow screens */
   .prob__word[data-i="1"] { padding-left: 4%; }
   .prob__word[data-i="2"] { padding-left: 8%; }
   .prob__word[data-i="3"] { padding-left: 2%; }
   .prob__word[data-i="4"] { padding-left: 10%; }
-  .prob__after { padding: 40px var(--pad) 80px; }
+
+  .prob__list { margin-top: 24px; gap: 10px; }
+  .prob__shift { margin-top: 40px; }
+  .prob__after { padding: 0 var(--pad) 64px; }
 }
 @media (max-width: 480px) {
   .prob__word[data-i="1"] { padding-left: 2%; }
