@@ -1795,10 +1795,12 @@ em { font-style: normal; color: var(--accent); }
   }
   .learn__copy {
     width: 100%;
+    order: 2;
   }
   .learn__phone-slot {
     width: 100%;
     justify-content: center;
+    order: 1; /* phone appears above the steps so tapping a step updates the screen above */
   }
 }
 

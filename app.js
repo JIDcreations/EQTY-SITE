@@ -333,17 +333,19 @@
       }
     });
   });
-  ScrollTrigger.create({
-    trigger: learningTrigger,
-    start: 'top top',
-    end: 'bottom bottom',
-    onUpdate: self => {
-      const progress = Math.min(self.progress / learningScrollSpan, 0.999999);
-      const nextIndex = Math.floor(progress * steps.length);
-      activateLearningStep(steps[nextIndex]);
-    },
-    onLeaveBack: () => activateLearningStep(steps[0], { force: true })
-  });
+  if (isWideScreen) {
+    ScrollTrigger.create({
+      trigger: learningTrigger,
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate: self => {
+        const progress = Math.min(self.progress / learningScrollSpan, 0.999999);
+        const nextIndex = Math.floor(progress * steps.length);
+        activateLearningStep(steps[nextIndex]);
+      },
+      onLeaveBack: () => activateLearningStep(steps[0], { force: true })
+    });
+  }
 
   // Phone learn intro
   gsap.from('#phoneLearn .phone__shell', {
