@@ -392,27 +392,30 @@
     scrollTrigger: { trigger: '.philo__quote', start: 'top 84%' }
   });
 
-  /* ---------- 9. Showcase: horizontal scroll ---------- */
+  /* ---------- 9. Showcase: horizontal scroll (desktop only) ---------- */
   const rail2 = document.getElementById('showRail');
+  const isWideScreen = window.matchMedia('(min-width: 1024px)').matches;
   if (rail2) {
     softSectionEnter('.show__head', '.sec--showcase', {
       y: 56,
       opacity: 0.3,
       end: 'top 40%'
     });
-    const totalScroll = () => rail2.scrollWidth - window.innerWidth + 80;
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: '.sec--showcase',
-        start: 'top top',
-        end: () => `+=${totalScroll() + window.innerHeight * 1.5}`,
-        scrub: 1.15,
-        pin: '.show__track',
-        invalidateOnRefresh: true
-      }
-    })
-    .to(rail2, { x: () => -totalScroll(), ease: 'none', duration: 1 })
-    .to({}, { duration: 1.5 });
+    if (isWideScreen) {
+      const totalScroll = () => rail2.scrollWidth - window.innerWidth + 80;
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: '.sec--showcase',
+          start: 'top top',
+          end: () => `+=${totalScroll() + window.innerHeight * 1.5}`,
+          scrub: 1.15,
+          pin: '.show__track',
+          invalidateOnRefresh: true
+        }
+      })
+      .to(rail2, { x: () => -totalScroll(), ease: 'none', duration: 1 })
+      .to({}, { duration: 1.5 });
+    }
     gsap.from('.show__card', {
       opacity: 0,
       y: 42,
@@ -660,6 +663,25 @@
       });
     });
   }
+
+  /* ---------- Mobile nav hamburger ---------- */
+  (() => {
+    const toggle = document.querySelector('.nav__toggle');
+    const navEl2 = document.getElementById('nav');
+    if (!toggle || !navEl2) return;
+    toggle.addEventListener('click', () => {
+      const open = navEl2.classList.toggle('nav--open');
+      toggle.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    document.querySelectorAll('.nav__links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navEl2.classList.remove('nav--open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+  })();
 
   function initPremiumScroll() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

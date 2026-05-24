@@ -66,3 +66,33 @@ h1, h2, h3,
 .hv2-h {
   font-family: var(--font-heading) !important;
 }
+
+/* ---- Responsive type scale ---- */
+
+@media (max-width: 1023px) {
+  :root {
+    --t-display: 96px;
+    --t-h1:      72px;
+    --t-h2:      44px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --t-display: 56px;
+    --t-h1:      48px;
+    --t-h2:      34px;
+    --t-h3:      20px;
+    --t-bodyL:   16px;
+    --t-body:    15px;
+    --t-eyebrow: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --t-display: 44px;
+    --t-h1:      40px;
+    --t-h2:      28px;
+  }
+}
