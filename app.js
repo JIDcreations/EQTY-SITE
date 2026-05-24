@@ -151,7 +151,6 @@
   });
 
   /* ---------- 4. Problem section — platform cycling ---------- */
-  if (isWideScreen) {
   softSectionEnter('.prob__stage .prob__inner', '.pin-wrap--problem', {
     y: 72,
     opacity: 0.4,
@@ -268,7 +267,6 @@
         ease: 'power2.inOut'
       }, '<');
   }
-  } // end isWideScreen — problem section
 
   /* ---------- 5. WHAT section: stats + not-list reveal ---------- */
   softSectionEnter('.sec--what .pin-stage', '.sec--what', {
