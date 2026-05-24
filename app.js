@@ -345,6 +345,10 @@
       img.alt = alt;
       img.className = 'learn__strip-img' + (i === 0 ? ' is-active' : '');
       img.dataset.screen = name;
+      img.addEventListener('click', () => {
+        const matchingStep = steps.find(s => s.dataset.target === name);
+        if (matchingStep) activateLearningStep(matchingStep);
+      });
       strip.appendChild(img);
     });
     const learnCopyEl = document.querySelector('.learn__copy');

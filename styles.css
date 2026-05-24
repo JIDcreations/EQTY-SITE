@@ -1812,7 +1812,7 @@ em { font-style: normal; color: var(--accent); }
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 8px;
+    padding: 6px 6px 12px;
     margin-top: 28px;
     scrollbar-width: none;
   }
@@ -1823,13 +1823,13 @@ em { font-style: normal; color: var(--accent); }
     border-radius: 14px;
     flex-shrink: 0;
     scroll-snap-align: center;
-    opacity: 0.4;
+    opacity: 1;
     outline: 2px solid transparent;
     outline-offset: 3px;
-    transition: opacity .3s var(--ease), outline-color .3s var(--ease);
+    cursor: pointer;
+    transition: outline-color .3s var(--ease);
   }
   .learn__strip-img.is-active {
-    opacity: 1;
     outline-color: var(--accent);
   }
 }
