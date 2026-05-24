@@ -14,6 +14,9 @@
   const screenSwitchTimelines = new WeakMap();
 
   initPremiumScroll();
+  initCustomCursor();
+  initCardTilt();
+  initMagneticCTA();
 
   const softSectionEnter = (target, trigger = target, options = {}) => {
     const {
@@ -105,6 +108,7 @@
     document.documentElement.style.setProperty('--fg', fg);
     document.documentElement.style.setProperty('--fg-dim', fgDim);
     document.documentElement.style.setProperty('--rule', rule);
+    document.documentElement.style.setProperty('--cursor-col', bg === '#FFD500' ? fg : '#FFD500');
     setRailLabel(label);
     gsap.to(rail, { top: `calc(50% - 110px + ${(idx / (sections.length - 1)) * 220}px)`, duration: .85, ease: 'power2.out', overwrite: 'auto' });
   };
@@ -558,6 +562,104 @@
     document.fonts.ready.then(() => ScrollTrigger.refresh());
   }
   window.addEventListener('load', () => ScrollTrigger.refresh());
+
+  /* ---------- Custom cursor ---------- */
+  function initCustomCursor() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    const dotWrap  = document.createElement('div');
+    dotWrap.className = 'cur';
+    dotWrap.innerHTML = '<div class="cur__dot"></div>';
+
+    const ringWrap = document.createElement('div');
+    ringWrap.className = 'cur-ring';
+    ringWrap.innerHTML = '<div class="cur-ring__track"></div>';
+
+    document.body.append(dotWrap, ringWrap);
+    document.body.classList.add('has-custom-cursor');
+
+    const setDotX  = gsap.quickSetter(dotWrap,  'x', 'px');
+    const setDotY  = gsap.quickSetter(dotWrap,  'y', 'px');
+    const setRingX = gsap.quickSetter(ringWrap, 'x', 'px');
+    const setRingY = gsap.quickSetter(ringWrap, 'y', 'px');
+
+    let mx = -200, my = -200, rx = -200, ry = -200, raf = 0;
+
+    window.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      setDotX(mx); setDotY(my);
+      if (!raf) raf = requestAnimationFrame(ringTick);
+    }, { passive: true });
+
+    function ringTick() {
+      rx += (mx - rx) * 0.11;
+      ry += (my - ry) * 0.11;
+      setRingX(rx); setRingY(ry);
+      raf = (Math.abs(mx - rx) + Math.abs(my - ry) > 0.05)
+        ? requestAnimationFrame(ringTick)
+        : 0;
+    }
+
+    const HOVER_SEL = 'a, button, .btn, .lstep, .ai__card, [role="button"]';
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest(HOVER_SEL)) document.body.classList.add('cur-hover');
+    }, { passive: true });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest(HOVER_SEL)) document.body.classList.remove('cur-hover');
+    }, { passive: true });
+
+    window.addEventListener('mousedown', () => document.body.classList.add('cur-click'), { passive: true });
+    window.addEventListener('mouseup',   () => document.body.classList.remove('cur-click'), { passive: true });
+  }
+
+  /* ---------- AI card 3D tilt on hover ---------- */
+  function initCardTilt() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    document.querySelectorAll('.ai__card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r  = card.getBoundingClientRect();
+        const nx = ((e.clientX - r.left) / r.width  - 0.5) * 2;
+        const ny = ((e.clientY - r.top)  / r.height - 0.5) * 2;
+        gsap.to(card, {
+          rotateY:  nx * 6,
+          rotateX: -ny * 5,
+          transformPerspective: 700,
+          ease: 'power3.out',
+          duration: 0.5,
+          overwrite: 'auto'
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          rotateY: 0, rotateX: 0,
+          ease: 'power3.out',
+          duration: 0.8,
+          overwrite: 'auto'
+        });
+      });
+    });
+  }
+
+  /* ---------- Magnetic nav CTA ---------- */
+  function initMagneticCTA() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    document.querySelectorAll('.nav__cta').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r  = el.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width  / 2)) * 0.28;
+        const dy = (e.clientY - (r.top  + r.height / 2)) * 0.28;
+        gsap.to(el, { x: dx, y: dy, duration: 0.4, ease: 'power2.out', overwrite: 'auto' });
+      });
+      el.addEventListener('mouseleave', () => {
+        gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.45)', overwrite: 'auto' });
+      });
+    });
+  }
 
   function initPremiumScroll() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
