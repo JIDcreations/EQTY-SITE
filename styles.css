@@ -1912,7 +1912,7 @@ em { font-style: normal; color: var(--accent); }
 @media (max-width: 768px) {
   .brand__grid {
     grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 200px;
+    grid-auto-rows: auto;
   }
   .brand__cell--mark,
   .brand__cell--markY,
@@ -1920,6 +1920,11 @@ em { font-style: normal; color: var(--accent); }
   .brand__cell--colors,
   .brand__cell--type,
   .brand__cell--type2 { grid-column: span 2; }
+  .brand__cell--mark,
+  .brand__cell--markY,
+  .brand__cell--word { min-height: 200px; }
+  .brand__cell--type,
+  .brand__cell--type2 { min-height: 180px; }
   .brand__palette { grid-template-columns: 1fr 1fr; }
   .ds-swatch { height: 80px; }
   .brand__h { margin-bottom: 40px; }
