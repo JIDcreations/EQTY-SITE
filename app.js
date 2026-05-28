@@ -834,3 +834,32 @@
     });
   }
 })();
+
+/* ---- Launch video modal ---- */
+(() => {
+  const btn   = document.getElementById('launchBtn');
+  const modal = document.getElementById('launchModal');
+  const close = document.getElementById('launchClose');
+  const video = document.getElementById('launchVideo');
+
+  function openModal() {
+    modal.hidden = false;
+    requestAnimationFrame(() => modal.style.opacity = '');
+    video.play();
+    document.body.style.overflow = 'hidden';
+    close.focus();
+  }
+
+  function closeModal() {
+    video.pause();
+    video.currentTime = 0;
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    btn.focus();
+  }
+
+  btn.addEventListener('click', openModal);
+  close.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+})();
