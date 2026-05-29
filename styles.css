@@ -1826,9 +1826,8 @@ em { font-style: normal; color: var(--accent); }
     gap: 12px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scroll-padding-left: var(--pad);
     -webkit-overflow-scrolling: touch;
-    padding: 6px 0 12px var(--pad);
+    padding: 6px 0 12px;
     margin-top: 28px;
     margin-left: calc(-1 * var(--pad));
     margin-right: calc(-1 * var(--pad));
@@ -1846,6 +1845,7 @@ em { font-style: normal; color: var(--accent); }
     border-radius: 14px;
     flex-shrink: 0;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
     opacity: 1;
     outline: 2px solid transparent;
     outline-offset: 3px;
