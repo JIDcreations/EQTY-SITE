@@ -1826,12 +1826,18 @@ em { font-style: normal; color: var(--accent); }
     gap: 12px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--pad);
     -webkit-overflow-scrolling: touch;
-    padding: 6px var(--pad) 12px;
+    padding: 6px 0 12px var(--pad);
     margin-top: 28px;
     margin-left: calc(-1 * var(--pad));
     margin-right: calc(-1 * var(--pad));
     scrollbar-width: none;
+  }
+  .learn__strip::after {
+    content: '';
+    display: block;
+    flex: 0 0 var(--pad);
   }
   .learn__strip::-webkit-scrollbar { display: none; }
   .learn__strip-img {
@@ -1839,7 +1845,7 @@ em { font-style: normal; color: var(--accent); }
     width: auto;
     border-radius: 14px;
     flex-shrink: 0;
-    scroll-snap-align: center;
+    scroll-snap-align: start;
     opacity: 1;
     outline: 2px solid transparent;
     outline-offset: 3px;
