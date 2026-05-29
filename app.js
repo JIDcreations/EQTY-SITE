@@ -335,7 +335,7 @@
     });
   });
 
-  // Mobile: inject screenshot preview directly into each step card
+  // Mobile: inject screenshot below each step card
   if (!isWideScreen) {
     steps.forEach(step => {
       const screenData = learningImageScreens.find(s => s.name === step.dataset.target);
@@ -344,7 +344,7 @@
       img.src = screenData.src;
       img.alt = screenData.alt;
       img.className = 'lstep__preview';
-      step.appendChild(img);
+      step.insertAdjacentElement('afterend', img);
     });
   }
   if (isWideScreen) {

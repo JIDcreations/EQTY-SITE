@@ -1814,21 +1814,15 @@ em { font-style: normal; color: var(--accent); }
   .learn__phone-slot {
     display: none;
   }
-  /* Step cards: 3-column grid — number | text | screenshot */
-  .lstep {
-    grid-template-columns: 44px 1fr 72px;
-    gap: 14px;
-    align-items: center;
-  }
+  /* Step cards: always show description */
   .lstep p { max-height: none; }
+  /* Screenshot below each card */
   .lstep__preview {
-    width: 72px;
-    height: 110px;
-    object-fit: cover;
-    object-position: top center;
-    border-radius: 10px;
     display: block;
-    flex-shrink: 0;
+    height: 340px;
+    width: auto;
+    margin: 4px auto 16px;
+    border-radius: 16px;
   }
 }
 
