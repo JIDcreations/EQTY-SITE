@@ -335,7 +335,7 @@
     });
   });
 
-  // Mobile: inject screenshot below each step card
+  // Mobile: inject screenshot below each step card + activate on scroll
   if (!isWideScreen) {
     steps.forEach(step => {
       const screenData = learningImageScreens.find(s => s.name === step.dataset.target);
@@ -346,6 +346,16 @@
       img.className = 'lstep__preview';
       step.insertAdjacentElement('afterend', img);
     });
+
+    const stepObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const step = steps.find(s => s === entry.target);
+        if (step) activateLearningStep(step);
+      });
+    }, { rootMargin: '-20% 0px -50% 0px', threshold: 0 });
+
+    steps.forEach(step => stepObserver.observe(step));
   }
   if (isWideScreen) {
     ScrollTrigger.create({
