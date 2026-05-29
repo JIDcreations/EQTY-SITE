@@ -1830,13 +1830,8 @@ em { font-style: normal; color: var(--accent); }
     padding: 6px 0 12px;
     margin-top: 28px;
     margin-left: calc(-1 * var(--pad));
-    margin-right: calc(-1 * var(--pad));
+    width: 100vw;
     scrollbar-width: none;
-  }
-  .learn__strip::after {
-    content: '';
-    display: block;
-    flex: 0 0 var(--pad);
   }
   .learn__strip::-webkit-scrollbar { display: none; }
   .learn__strip-img {
