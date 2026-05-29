@@ -1812,43 +1812,23 @@ em { font-style: normal; color: var(--accent); }
     width: 100%;
   }
   .learn__phone-slot {
-    display: none; /* replaced by the .learn__strip created by JS */
+    display: none;
   }
-}
-
-/* Mobile frame strip — created by JS on small screens */
-.learn__strip {
-  display: none;
-}
-@media (max-width: 1023px) {
-  .learn__strip {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding: 6px 0 12px;
-    margin-top: 28px;
-    margin-left: calc(-1 * var(--pad));
-    width: calc(100% + 2 * var(--pad));
-    scrollbar-width: none;
+  /* Step cards: 3-column grid — number | text | screenshot */
+  .lstep {
+    grid-template-columns: 44px 1fr 72px;
+    gap: 14px;
+    align-items: center;
   }
-  .learn__strip::-webkit-scrollbar { display: none; }
-  .learn__strip-img {
-    height: 220px;
-    width: auto;
-    border-radius: 14px;
+  .lstep p { max-height: none; }
+  .lstep__preview {
+    width: 72px;
+    height: 110px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 10px;
+    display: block;
     flex-shrink: 0;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    opacity: 1;
-    outline: 2px solid transparent;
-    outline-offset: 3px;
-    cursor: pointer;
-    transition: outline-color .3s var(--ease);
-  }
-  .learn__strip-img.is-active {
-    outline-color: var(--accent);
   }
 }
 

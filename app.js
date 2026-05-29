@@ -335,24 +335,17 @@
     });
   });
 
-  // Mobile: build a horizontal frame strip instead of the interactive phone
+  // Mobile: inject screenshot preview directly into each step card
   if (!isWideScreen) {
-    const strip = document.createElement('div');
-    strip.className = 'learn__strip';
-    learningImageScreens.forEach(({ src, alt, name }, i) => {
+    steps.forEach(step => {
+      const screenData = learningImageScreens.find(s => s.name === step.dataset.target);
+      if (!screenData) return;
       const img = document.createElement('img');
-      img.src = src;
-      img.alt = alt;
-      img.className = 'learn__strip-img' + (i === 0 ? ' is-active' : '');
-      img.dataset.screen = name;
-      img.addEventListener('click', () => {
-        const matchingStep = steps.find(s => s.dataset.target === name);
-        if (matchingStep) activateLearningStep(matchingStep);
-      });
-      strip.appendChild(img);
+      img.src = screenData.src;
+      img.alt = screenData.alt;
+      img.className = 'lstep__preview';
+      step.appendChild(img);
     });
-    const learnCopyEl = document.querySelector('.learn__copy');
-    if (learnCopyEl) learnCopyEl.insertBefore(strip, learnCopyEl.querySelector('.learn__steps'));
   }
   if (isWideScreen) {
     ScrollTrigger.create({
@@ -580,15 +573,6 @@
     step.classList.add('on');
     steps.forEach(s => s.setAttribute('aria-pressed', s === step ? 'true' : 'false'));
     switchScreen('#phoneLearn', step.dataset.target);
-    // Mobile: update the frame strip highlight
-    if (!isWideScreen) {
-      const target = step.dataset.target;
-      document.querySelectorAll('.learn__strip-img').forEach(img => {
-        const active = img.dataset.screen === target;
-        img.classList.toggle('is-active', active);
-        if (active) img.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      });
-    }
   }
 
   // Refresh after fonts load (Filson Pro / Inter) to remeasure pin offsets
