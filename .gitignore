@@ -13,6 +13,9 @@ coverage/
 checks/
 uploads/
 
+assets/Demo/2526_ImpensJ_EQTY-Demo.mp4
+assets/Demo/2526_IDL5FP_Demo.mp4
+
 *.log
 *.tmp
 *.swp

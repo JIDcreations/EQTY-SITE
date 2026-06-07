@@ -1992,3 +1992,36 @@ em { font-style: normal; color: var(--accent); }
 }
 .nav__launch:hover { color: var(--fg); }
 .nav__launch:hover::after { left: 0; right: 0; }
+
+/* =========================================================
+   DEMO PAGE
+   ========================================================= */
+.demo-page {
+  min-height: 100vh;
+  background: #05070A;
+  color: #F2F4F6;
+}
+.demo {
+  height: 100vh;
+  padding: 92px 28px 32px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+.demo__video {
+  display: block;
+  width: min(100%, 64vh);
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+  background: #05070A;
+}
+
+@media (max-width: 768px) {
+  .demo {
+    padding: 78px 14px 22px;
+  }
+  .demo__video {
+    width: min(100%, 58vh);
+  }
+}
